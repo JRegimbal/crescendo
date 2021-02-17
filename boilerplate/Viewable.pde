@@ -1,0 +1,3 @@
+interface Viewable {
+  PShape draw();
+}
