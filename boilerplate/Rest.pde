@@ -1,4 +1,4 @@
-public class Rest extends DurationElement {
+class Rest extends DurationElement {
   Rest(Score s, BaseDuration dur, boolean dotted) {
     super(s);
     this.duration = dur;

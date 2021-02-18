@@ -1,3 +1,0 @@
-interface Viewable {
-  void draw();
-}

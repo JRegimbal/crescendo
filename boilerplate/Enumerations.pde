@@ -1,6 +1,6 @@
 import org.apache.commons.numbers.fraction.*;
 
-public enum BaseDuration {
+enum BaseDuration {
   WHOLE(Fraction.of(1, 1)),
   HALF(Fraction.of(1, 2)),
   QUARTER(Fraction.of(1, 4)),
@@ -13,4 +13,10 @@ public enum BaseDuration {
   public Fraction getValue() {
     return this.value;
   }
+}
+
+enum ClefShape {
+  C,
+  G,
+  F
 }

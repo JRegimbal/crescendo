@@ -1,3 +1,0 @@
-interface Audible {
-  void play();
-}

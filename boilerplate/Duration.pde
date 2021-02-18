@@ -1,3 +1,12 @@
+import org.apache.commons.numbers.fraction.*;
+
+interface Duration {
+  BaseDuration getBaseDuration();
+  boolean isDotted();
+  Fraction getDuration();
+  double durationMs();
+}
+
 class DurationElement extends OrderedMusicElement implements Duration {
   BaseDuration duration;
   boolean dotted;

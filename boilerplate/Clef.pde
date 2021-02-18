@@ -2,19 +2,22 @@ class Clef extends OrderedMusicElement {
   ClefShape shape;
   int line;
   
-  public Clef(Score s) {
+  public Clef(Score s, ClefShape sh, int line) {
     super(s);
-    shape = ClefShape.G;
-    line = 2;
+    shape = sh;
+    this.line = line;
+  }
+  
+  public Clef(Score s) {
+    this(s, ClefShape.G, 2);
   }
   
   public Clef(Score s, ClefShape sh) {
-    super(s);
-    shape = sh;
-    if (shape == ClefShape.G) {
+    this(s, sh, 0);
+    if (sh == ClefShape.G) {
       line = 2;
     }
-    else if (shape == ClefShape.C) {
+    else if (sh == ClefShape.C) {
       line = 3;
     }
     else {      // ClefShape.F
@@ -22,11 +25,7 @@ class Clef extends OrderedMusicElement {
     }
   }
   
-  public Clef(Score s, ClefShape sh, int line) {
-    super(s);
-    shape = sh;
-    this.line = line;
-  }
+
   
   PVector getPosition() {
     int index = getIndex();

@@ -25,6 +25,12 @@ public class Score {
     }
   }
   
+  PVector getBasePosition(int i) {
+    int x = marginHorizontal + elemMargin + i *elemSpacing;
+    int y = marginVertical + totalHeight;
+    return new PVector(x, y);
+  }
+  
   public void draw() {
     textFont(bravura);
     textAlign(CENTER);
