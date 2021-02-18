@@ -3,19 +3,10 @@ class Clef extends OrderedMusicElement {
   KeySignature sig;
   int line;
   
-  public Clef(Score s, ClefShape sh, int line) {
+  public Clef(Score s, ClefShape sh, KeySignature sig) {
     super(s);
     shape = sh;
-    this.line = line;
-    this.sig = KeySignature.CsMaj;
-  }
-  
-  public Clef(Score s) {
-    this(s, ClefShape.G, 2);
-  }
-  
-  public Clef(Score s, ClefShape sh) {
-    this(s, sh, 0);
+    this.sig = sig;
     if (sh == ClefShape.G) {
       line = 2;
     }
@@ -26,8 +17,15 @@ class Clef extends OrderedMusicElement {
       line = 4;
     }
   }
-  
 
+
+  public Clef(Score s) {
+    this(s, ClefShape.G);
+  }
+
+  public Clef(Score s, ClefShape sh) {
+    this(s, sh, KeySignature.CMaj);
+  }
   
   PVector getPosition() {
     PVector basePosition = getBasePosition();
@@ -81,6 +79,11 @@ class Clef extends OrderedMusicElement {
     // Render key signature (if necessary)
     float textWidth = textWidth(text);
     PVector sigPos = getBasePosition();
+    // Offset since we expect to be in G by default
+    if (this.shape == ClefShape.F) {
+    }
+    else if (this.shape == ClefShape.C) {
+    }
     sigPos.x += textWidth;
     float sigWidth = textWidth(this.sig.getGlyph());
     String glyph = this.sig.getGlyph();
@@ -110,6 +113,34 @@ class Clef extends OrderedMusicElement {
       if (this.sig == KeySignature.FsMaj) return;
       sigPos.x += sigWidth;
       sigPos.y += 3 * (this.parent.lineSpacing / 2);
+      text(glyph, sigPos.x, sigPos.y);
+    }
+    else if (this.sig.getGlyph() == "\ue260") { // Flats
+      sigPos.y -= 2 * this.parent.lineSpacing;
+      text(glyph, sigPos.x, sigPos.y);
+      if (this.sig == KeySignature.FMaj) return;
+      sigPos.x += sigWidth;
+      sigPos.y -= 3 * (this.parent.lineSpacing / 2);
+      text(glyph, sigPos.x, sigPos.y);
+      if (this.sig == KeySignature.BfMaj) return;
+      sigPos.x += sigWidth;
+      sigPos.y += 2 * this.parent.lineSpacing;
+      text(glyph, sigPos.x, sigPos.y);
+      if (this.sig == KeySignature.EfMaj) return;
+      sigPos.x += sigWidth;
+      sigPos.y -= 3 * (this.parent.lineSpacing / 2);
+      text(glyph, sigPos.x, sigPos.y);
+      if (this.sig == KeySignature.AfMaj) return;
+      sigPos.x += sigWidth;
+      sigPos.y += 2 * this.parent.lineSpacing;
+      text(glyph, sigPos.x, sigPos.y);
+      if (this.sig == KeySignature.DfMaj) return;
+      sigPos.x += sigWidth;
+      sigPos.y -= 3 * (this.parent.lineSpacing / 2);
+      text(glyph, sigPos.x, sigPos.y);
+      if (this.sig == KeySignature.GfMaj) return;
+      sigPos.x += sigWidth;
+      sigPos.y += 2 * this.parent.lineSpacing;
       text(glyph, sigPos.x, sigPos.y);
     }
   }

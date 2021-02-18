@@ -23,8 +23,15 @@ public class Score {
   }
   
   PVector getBasePosition(int i) {
-    int x = marginHorizontal + elemMargin + i * elemSpacing;
-    int y = marginVertical + totalHeight;
+    float x;
+    if (i == 0) {
+      x = marginHorizontal + elemMargin;
+    }
+    else {
+      x = getBasePosition(i - 1).x + this.elements.get(i - 1).getWidth() + this.elements.get(i).getWidth();
+    }
+    
+    float y = marginVertical + totalHeight;
     return new PVector(x, y);
   }
   
