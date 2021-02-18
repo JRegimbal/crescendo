@@ -1,3 +1,3 @@
 interface Viewable {
-  PShape draw();
+  void draw();
 }

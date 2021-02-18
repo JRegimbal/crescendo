@@ -7,7 +7,19 @@ abstract class OrderedMusicElement implements Viewable {
     this.parent.elements.add(this);
   }
   
-  PShape draw() {
-    return createShape(ELLIPSE, 10, 10, 10, 10);
+  public PVector getPosition() { return getBasePosition(); }
+  
+  public PVector getBasePosition() {
+    int x = this.parent.marginHorizontal + this.parent.elemMargin + getIndex() * this.parent.elemSpacing;
+    int y = this.parent.marginVertical + this.parent.totalHeight;
+    return new PVector(x, y);
+  }
+  
+  public int getIndex() {
+    return this.parent.elements.indexOf(this);
+  }
+  
+  void draw() {
+    return;
   }
 }
