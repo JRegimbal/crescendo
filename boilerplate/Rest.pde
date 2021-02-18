@@ -19,7 +19,7 @@ class Rest extends DurationElement {
     return basePosition;
   }
   
-  void draw() {
+  String getText() {
     String text;
     switch (this.duration) {
       case WHOLE:
@@ -40,6 +40,15 @@ class Rest extends DurationElement {
     if (this.dotted) {
       text += "\ue1e7";
     }
+    return text;
+  }
+  
+  float getWidth() {
+    return textWidth(getText());
+  }
+    
+  void draw() {
+    String text = getText();
     PVector pos = getPosition();
     text(text, pos.x, pos.y);
   }   

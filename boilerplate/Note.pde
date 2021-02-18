@@ -25,7 +25,7 @@ class Note extends DurationElement implements Tangible {
     return base;
   }
   
-  void draw() {
+  String getText() {
     String text = "";
     switch (this.duration) {
       case WHOLE:
@@ -59,7 +59,15 @@ class Note extends DurationElement implements Tangible {
     if (this.dotted) {
       text += "\ue1e7";
     }
-    
+    return text;
+  }
+  
+  float getWidth() {
+    return textWidth(getText());
+  }
+  
+  void draw() {
+    String text = getText();
     PVector pos = getPosition();
     text(text, pos.x, pos.y);
   }

@@ -7,6 +7,7 @@ void setup() {
   size(640, 320);
   s = new Score();
   c = new Clef(s, ClefShape.G);
+  /*
   r = new Rest(s, BaseDuration.HALF);
   // Make a new quarter note that is dotted and one space up from the first staff line
   n = new Note(s, BaseDuration.QUARTER, true, 1);
@@ -14,6 +15,7 @@ void setup() {
   n1 = new Note(s, BaseDuration.EIGHTH, 0);
   r2 = new Rest(s, BaseDuration.QUARTER);
   println(s.elements.size());
+  */
 }
 
 void draw() {

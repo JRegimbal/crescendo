@@ -16,9 +16,6 @@ public class Score {
   public Score() {
     this.elements.clear();
     this.bravura = createFont("Bravura.otf", totalHeight);
-    final int totalHeight = lineSpacing * 4;
-    final int marginVertical = (height - totalHeight) / 2;
-    final int marginHorizontal = 0;
     for (int i = 0; i < lines.length; i++) {
       lines[i] = createShape(LINE, 0 + marginHorizontal, 0 + marginVertical + i * lineSpacing, width - marginHorizontal, marginVertical + i * lineSpacing);
       lines[i].setStroke(strokeWidth);
@@ -26,7 +23,7 @@ public class Score {
   }
   
   PVector getBasePosition(int i) {
-    int x = marginHorizontal + elemMargin + i *elemSpacing;
+    int x = marginHorizontal + elemMargin + i * elemSpacing;
     int y = marginVertical + totalHeight;
     return new PVector(x, y);
   }

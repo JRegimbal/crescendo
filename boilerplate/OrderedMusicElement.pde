@@ -17,6 +17,8 @@ abstract class OrderedMusicElement implements Viewable {
     return this.parent.elements.indexOf(this);
   }
   
+  abstract float getWidth();
+  
   void draw() {
     return;
   }

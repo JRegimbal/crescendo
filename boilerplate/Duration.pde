@@ -7,7 +7,7 @@ interface Duration {
   double durationMs();
 }
 
-class DurationElement extends OrderedMusicElement implements Duration {
+abstract class DurationElement extends OrderedMusicElement implements Duration {
   BaseDuration duration;
   boolean dotted;
   
