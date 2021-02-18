@@ -81,8 +81,10 @@ class Clef extends OrderedMusicElement {
     PVector sigPos = getBasePosition();
     // Offset since we expect to be in G by default
     if (this.shape == ClefShape.F) {
+      sigPos.y += this.parent.lineSpacing;
     }
     else if (this.shape == ClefShape.C) {
+      sigPos.y += this.parent.lineSpacing / 2;
     }
     sigPos.x += textWidth;
     float sigWidth = textWidth(this.sig.getGlyph());
