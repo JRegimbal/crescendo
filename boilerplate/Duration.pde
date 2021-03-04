@@ -39,7 +39,7 @@ abstract class DurationElement extends OrderedMusicElement implements Duration {
     }
     double durationMs = 60/tempo;
     double shape2time= ts.den/shape.getDenominator();
-    durationMs= durationMs*shape2time;
+    durationMs= durationMs*shape2time*1000;
     return durationMs;
   }
 }
