@@ -24,3 +24,8 @@ void draw() {
   background(255);
   s.draw();
 }
+
+void play() {
+  System.out.println("hi");
+  
+}

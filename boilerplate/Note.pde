@@ -1,9 +1,9 @@
 import processing.sound.*;
 Sound sound;
 
-class Note extends DurationElement implements Tangible {
+class Note extends DurationElement implements Tangible, Runnable{
   int location;  // number of lines and spacing where space below the first line is 0
-  SinOsc sine;  //each note has its own sine wave
+  public SinOsc sine;  //each note has its own sine wave
   /** Get the previous clef: this.getPrevious(Clef.class);
     * Get the previous time signature: this.getPrevious(TimeSignature.class);
     */
@@ -77,8 +77,10 @@ class Note extends DurationElement implements Tangible {
     String text = getText();
     PVector pos = getPosition();
     text(text, pos.x, pos.y);
+    getSine();
     if(mouseX-pos.x <10 && mouseY-pos.y<10){
-      thread("play");
+      Thread thread= new Thread(this);
+      thread.run();
     }
   }
     
@@ -87,8 +89,8 @@ class Note extends DurationElement implements Tangible {
   PVector force(PVector posEE) {
     return new PVector(0, 0);
   }
-
-  void play(){
+  
+  void getSine(){
     //the notes can be found by taking the starting note and doing the following calculation: Freq = note x 2^N/12
     //the clef will determine the starting note
     Clef c = (Clef) this.getPrevious(Clef.class);
@@ -110,7 +112,12 @@ class Note extends DurationElement implements Tangible {
       refnote= 98.00;
     }
     float frequency= (float) (refnote* Math.pow(2, (this.location-1)/12));
+    System.out.println(frequency);
     sine.freq(frequency);
+    
+  }
+
+  void run(){
     //making sure that the thing plays for the appropriate amount of time
     double currentTime= millis();
     while((millis()-currentTime) < this.durationMs()){
