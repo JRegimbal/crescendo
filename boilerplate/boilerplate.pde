@@ -1,3 +1,5 @@
+PApplet appletRef = this;
+
 Score s;
 Clef c;
 TimeSignature t;

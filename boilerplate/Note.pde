@@ -1,3 +1,6 @@
+import processing.sound.*;
+Sound sound;
+
 class Note extends DurationElement implements Tangible {
   int location;  // number of lines and spacing where space below the first line is 0
   
@@ -74,6 +77,9 @@ class Note extends DurationElement implements Tangible {
     String text = getText();
     PVector pos = getPosition();
     text(text, pos.x, pos.y);
+    if(mouseX==pos.x && mouseY==pos.y){
+      thread("play");
+    }
   }
     
   
@@ -99,7 +105,14 @@ class Note extends DurationElement implements Tangible {
       //the reference note is G2
       refnote= 98.00;
     }
-    double frequency= refnote* Math.pow(2, (this.location-1)/12);
-    //We need to import the sound module to make this work
+    float frequency= (float) (refnote* Math.pow(2, (this.location-1)/12));
+    SinOsc sin= new SinOsc(this);
+    sin.freq(frequency);
+    sin.play();
+    //making sure that the thing plays for the appropriate amount of time
+    double currentTime= millis();
+    if((millis()-currentTime)== this.durationMs()){
+      sin.stop();
+    }
   }
 }
