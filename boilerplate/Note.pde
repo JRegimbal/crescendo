@@ -115,6 +115,7 @@ class Note extends DurationElement implements Tangible, Runnable{
     float frequency= (float) (refnote* Math.pow(2, (this.location-1)/12));
     System.out.println(frequency);
     sine.freq(frequency);
+    sine.amp(0.5);
     
   }
 
@@ -123,6 +124,7 @@ class Note extends DurationElement implements Tangible, Runnable{
     double currentTime= millis();
     while((millis()-currentTime) < this.durationMs()){
       sine.play();
+      System.out.println("hit");
     }
     sine.stop();
   }
