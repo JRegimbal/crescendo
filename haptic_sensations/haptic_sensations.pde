@@ -1,18 +1,16 @@
 /**
  **********************************************************************************************************************
- * @file       Maze.pde
- * @author     Elie Hymowitz, Steve Ding, Colin Gallacher
- * @version    V4.0.0
- * @date       08-January-2021
- * @brief      Maze game example using 2-D physics engine
+ * @file       haptic_sensations.pde
+ * @author     Hannah E., Rubia G.
+ * @version    V1.0.0
+ * @date       03-March-2021
+ * @brief      Haptic sketching for CanHaptics 501 project
  **********************************************************************************************************************
  * @attention
  *
  *
  **********************************************************************************************************************
  */
-
-
 
 /* library imports *****************************************************************************************************/
 import processing.serial.*;
@@ -21,11 +19,9 @@ import java.util.concurrent.*;
 /* end library imports *************************************************************************************************/
 
 
-
 /* scheduler definition ************************************************************************************************/
 private final ScheduledExecutorService scheduler      = Executors.newScheduledThreadPool(1);
 /* end scheduler definition ********************************************************************************************/
-
 
 
 /* device block definitions ********************************************************************************************/
@@ -40,11 +36,9 @@ boolean           renderingForce                     = false;
 /* end device block definition *****************************************************************************************/
 
 
-
 /* framerate definition ************************************************************************************************/
 long              baseFrameRate                       = 120;
 /* end framerate definition ********************************************************************************************/
-
 
 
 /* elements definition *************************************************************************************************/
@@ -72,10 +66,11 @@ float             edgeBottomRightX                    = worldWidth;
 float             edgeBottomRightY                    = worldHeight;
 
 float             gravityAcceleration                 = 980; //cm/s2
+
 /* Initialization of virtual tool */
 HVirtualCoupling  s;
 
-/* define maze blocks */
+/* define notations blocks */
 FBox              l1;
 FBox              l2;
 FBox              l3;
@@ -87,10 +82,6 @@ FCircle           n3;
 FCircle           n4;
 FCircle           n5;
 FCircle           n6;
-FCircle           n7;
-FCircle           n8;
-FCircle           n9;
-FCircle           n10;
 
 /* define mode parameters */
 boolean           toggle_lines                        = false;
@@ -114,7 +105,6 @@ float barSpace = 1.5;
 /* end elements definition *********************************************************************************************/
 
 
-
 /* setup section *******************************************************************************************************/
 void setup() {
   /* put setup code here, run once: */
@@ -124,7 +114,7 @@ void setup() {
 
   /* device setup */
 
-  /**  
+   /**  
    * The board declaration needs to be changed depending on which USB serial port the Haply board is connected.
    * In the base example, a connection is setup to the first detected serial device, this parameter can be changed
    * to explicitly state the serial port will look like the following for different OS:
@@ -281,16 +271,15 @@ void setup() {
 
   world.draw();
 
-
   /* setup framerate speed */
   frameRate(baseFrameRate);
-
 
   /* setup simulation thread to run at 1kHz */
   SimulationThread st = new SimulationThread();
   scheduler.scheduleAtFixedRate(st, 1, 1, MILLISECONDS);
 }
 /* end setup section ***************************************************************************************************/
+
 
 /* draw section ********************************************************************************************************/
 void draw() {
@@ -301,6 +290,7 @@ void draw() {
   }
 }
 /* end draw section ****************************************************************************************************/
+
 
 /* keyboard inputs ********************************************************************************************************/
 void keyPressed() {
@@ -348,6 +338,7 @@ void keyPressed() {
     damping += 100;
   }
 }
+
 
 /* simulation section **************************************************************************************************/
 class SimulationThread implements Runnable {
@@ -520,7 +511,6 @@ class SimulationThread implements Runnable {
 }
 
 /* end simulation section **********************************************************************************************/
-
 
 
 /* helper functions section, place helper functions here ***************************************************************/
