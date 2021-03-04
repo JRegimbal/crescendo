@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Score {
   PFont smuflFont;
-  final int lineSpacing = 20;  // px
+  final static int lineSpacing = 20;  // px
   final int strokeWidth = 4;   // px
   final int totalHeight = lineSpacing * 4;
   final int marginVertical = (height - totalHeight) / 2;

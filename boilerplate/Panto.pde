@@ -10,7 +10,8 @@ float             L                                   = 0.09;
 PVector           deviceOrigin                        = new PVector(0, 0);
 
 /* end effector radius in meters */
-float             rEE                                 = 0.006;
+//float             rEE                                 = 0.006;
+float rEE = Score.lineSpacing / 2 / pixelsPerMeter;
 
 PShape pGraph, joint, endEffector;
 
