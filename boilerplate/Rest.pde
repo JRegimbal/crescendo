@@ -1,8 +1,15 @@
 class Rest extends DurationElement {
+  String text;
+  PVector pos;
+  boolean initial;
+  float textWidth;
+  
   Rest(Score s, BaseDuration dur, boolean dotted) {
     super(s);
+    this.initial = true;
     this.duration = dur;
     this.dotted = dotted;
+    this.textWidth = textWidth(getText());
   }
   
   Rest(Score s) {
@@ -44,12 +51,15 @@ class Rest extends DurationElement {
   }
   
   float getWidth() {
-    return textWidth(getText());
+    return this.textWidth;
   }
     
   void draw() {
-    String text = getText();
-    PVector pos = getPosition();
+    if (this.initial) {
+      text = getText();
+      pos = getPosition();
+      initial = false;
+    }
     text(text, pos.x, pos.y);
   }   
 }

@@ -2,6 +2,7 @@ import java.util.List;
 
 abstract class OrderedMusicElement implements Viewable {
   Score parent;
+  PVector initialBase = null;
   
   OrderedMusicElement(Score s) {
     assert(s != null);
@@ -12,7 +13,22 @@ abstract class OrderedMusicElement implements Viewable {
   PVector getPosition() { return getBasePosition(); }
   
   PVector getBasePosition() {
-    return this.parent.getBasePosition(getIndex());
+    if (initialBase == null) {
+      initialBase = this.parent.getBasePosition(getIndex()).copy();
+    }
+    PVector actual = this.parent.getBasePosition(getIndex());
+    /*if (!initialBase.equals(actual)) {
+      println("ERROR");
+      println(initialBase, actual);
+    }*/
+    return actual;
+  }
+   
+  PVector getPhysicsPosition() {
+    PVector pos = getPosition();
+    pos.x -= width / 2;
+    pos.set(pos.div(pixelsPerMeter));
+    return pos;
   }
   
   int getIndex() {
@@ -22,10 +38,6 @@ abstract class OrderedMusicElement implements Viewable {
   abstract float getWidth();
   
   void draw() {
-    return;
-  }
-  
-  void update() {
     return;
   }
   

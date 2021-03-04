@@ -1,6 +1,7 @@
 class Note extends DurationElement implements Tangible {
   int location;  // number of lines and spacing where space below the first line is 0
-  
+  float textWidth;
+
   /** Get the previous clef: this.getPrevious(Clef.class);
     * Get the previous time signature: this.getPrevious(TimeSignature.class);
     */
@@ -10,6 +11,7 @@ class Note extends DurationElement implements Tangible {
     this.duration = dur;
     this.dotted = dotted;
     this.location = location;
+    this.textWidth = textWidth(getText());
   }
   public Note(Score s) {
     this(s, BaseDuration.QUARTER, false, 0);
@@ -79,6 +81,11 @@ class Note extends DurationElement implements Tangible {
   
   // TODO Update Implementation
   PVector force(PVector posEE, PVector velEE) {
-    return new PVector(0, 0);
+    PVector posDiff = (posEE.copy().sub(getPhysicsPosition()));
+    final float threshold = 0.005;
+    if (posDiff.mag() > threshold) {
+      return new PVector(0, 0);
+    }
+    return new PVector(-1.1, -1.1);
   }
 }

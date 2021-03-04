@@ -8,5 +8,4 @@ interface Tangible {
 
 interface Viewable {
   void draw();
-  void update();
 }

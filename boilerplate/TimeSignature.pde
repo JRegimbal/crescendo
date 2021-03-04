@@ -2,15 +2,24 @@ class TimeSignature extends OrderedMusicElement {
   
   int num;
   int den;
+  String tn, td;
+  PVector pn, pd;
+  boolean initial;
+  float textWidthN, textWidthD, textWidth;
+  
   
   TimeSignature(Score s, int num, int den) {
     super(s);
     this.num = num;
     this.den = den;
+    this.initial = true;
+    this.textWidthN = textWidth(getTextN());
+    this.textWidthD = textWidth(getTextD());
+    this.textWidth = max(textWidthN, textWidthD);
   }
   
   float getWidth () {
-    return max(textWidth(getTextN()), textWidth(getTextD()));
+    return this.textWidth;
   }
   
   String getText(int i) {
@@ -64,11 +73,15 @@ class TimeSignature extends OrderedMusicElement {
   }
   
   void draw() {
-    PVector pos = getPosition();
-    String tn = getTextN();
-    text(tn, pos.x, pos.y);
-    String td = getTextD();
-    pos.y += 2 * this.parent.lineSpacing;
-    text(td, pos.x, pos.y);
+    if (initial) {
+      pn = getPosition();
+      tn = getTextN();
+      td = getTextD();
+      pd = pn.copy();
+      pd.y += 2 * this.parent.lineSpacing;
+      initial = false;
+    }
+    text(tn, pn.x, pn.y);
+    text(td, pd.x, pd.y);
   }
 }

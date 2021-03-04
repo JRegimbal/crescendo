@@ -1,6 +1,7 @@
 import processing.serial.*;
 import static java.util.concurrent.TimeUnit.*;
 import java.util.concurrent.*;
+import java.lang.System;
 
 private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
@@ -32,6 +33,7 @@ Note n, n1;
 
 void setup() {
   size(1000, 650);
+  frameRate(baseFrameRate);
   /** Haply */
   haplyBoard = new Board(this, Serial.list()[0], 0);
   widget = new Device(widgetID, haplyBoard);

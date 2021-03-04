@@ -16,6 +16,7 @@ public class Score {
   public Score() {
     this.elements.clear();
     this.smuflFont = createFont("Bravura.otf", totalHeight);
+    textFont(smuflFont);
     for (int i = 0; i < lines.length; i++) {
       lines[i] = createShape(LINE, 0 + marginHorizontal, 0 + marginVertical + i * lineSpacing, width - marginHorizontal, marginVertical + i * lineSpacing);
       lines[i].setStroke(strokeWidth);
@@ -34,13 +35,12 @@ public class Score {
     float y = marginVertical + totalHeight;
     return new PVector(x, y);
   }
-  
+
   public void draw() {
     textFont(smuflFont);
     textAlign(CENTER);
     fill(0);
     for (PShape line : lines) {
-      println(width);
       shape(line);
     }
     
