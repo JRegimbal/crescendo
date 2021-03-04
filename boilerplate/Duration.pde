@@ -28,7 +28,7 @@ abstract class DurationElement extends OrderedMusicElement implements Duration {
   }
   
   double durationMs() {
-    durationMs =
+    durationMs = 0;
     return Double.NaN;
   }
 }
