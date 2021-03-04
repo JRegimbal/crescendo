@@ -94,7 +94,7 @@ class Note extends DurationElement implements Tangible {
       //the reference note is G2
       double refnote= 98.00;
     }
-    double frequency= refnote* Math.pow(2, this.getPosition()/6);
+    double frequency= refnote* Math.pow(2, (this.location()-1)/12);
     //We need to import the sound module to make this work
   }
 }
