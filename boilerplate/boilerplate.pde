@@ -8,7 +8,7 @@ Note n, n1;
 
 void setup() {
   size(640, 320);
-  s = new Score();
+  s = new Score(120);
   c = new Clef(s, ClefShape.G, KeySignature.DMaj);
   t = new TimeSignature(s, 3, 4);
   r = new Rest(s, BaseDuration.HALF);

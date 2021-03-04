@@ -22,9 +22,7 @@ abstract class DurationElement extends OrderedMusicElement implements Duration {
   Fraction getDuration() {
     Fraction dur = getBaseDuration().getValue(); //wait we are using fraction here which I am not familiar with
     if (this.dotted) {
-      Fraction nextSmallest= new Fraction();
-      nextSmallest.setNumerator(1);
-      nextSmallest.setDenominator(dur.getDenominator()/2);
+      Fraction nextSmallest= Fraction.getReducedFraction(1, dur.getDenominator()*2);
       dur= dur.add(nextSmallest);
     }
     return dur;
@@ -32,8 +30,13 @@ abstract class DurationElement extends OrderedMusicElement implements Duration {
   
   double durationMs() {
     Fraction shape= this.getDuration();
-    TimeSignature ts = this.getPrevious(TimeSignature.class);
-    double tempo= this.tempo; //not sure if this has been implemented yet
+    //the calls for time signature and tempo are probably wrong
+    OrderedMusicElement e = (OrderedMusicElement) this;
+    double tempo = e.parent.tempo;
+    TimeSignature ts = (TimeSignature) e.getPrevious(TimeSignature.class);
+    if(ts==null){
+      ts= new TimeSignature(e.parent, 4, 4);
+    }
     double durationMs = 60/tempo;
     double shape2time= ts.den/shape.getDenominator();
     durationMs= durationMs*shape2time;
