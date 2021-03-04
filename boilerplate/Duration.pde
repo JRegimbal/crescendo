@@ -20,15 +20,23 @@ abstract class DurationElement extends OrderedMusicElement implements Duration {
   boolean isDotted() { return dotted; }
   
   Fraction getDuration() {
-    Fraction dur = getBaseDuration().getValue();
+    Fraction dur = getBaseDuration().getValue(); //wait we are using fraction here which I am not familiar with
     if (this.dotted) {
-      // include next smallest duration
+      Fraction nextSmallest= new Fraction();
+      nextSmallest.setNumerator(1);
+      nextSmallest.setDenominator(dur.getDenominator()/2);
+      dur= dur.add(nextSmallest);
     }
     return dur;
   }
   
   double durationMs() {
-    durationMs = 0;
-    return Double.NaN;
+    Fraction shape= this.getDuration();
+    TimeSignature ts = this.getPrevious(TimeSignature.class);
+    double tempo= this.tempo; //not sure if this has been implemented yet
+    double durationMs = 60/tempo;
+    double shape2time= ts.denominator/shape.getDenominator();
+    durationMs= durationMs*shape2time;
+    return durationMs;
   }
 }
