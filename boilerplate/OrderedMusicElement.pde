@@ -13,14 +13,7 @@ abstract class OrderedMusicElement implements Viewable {
   PVector getPosition() { return getBasePosition(); }
   
   PVector getBasePosition() {
-    if (initialBase == null) {
-      initialBase = this.parent.getBasePosition(getIndex()).copy();
-    }
     PVector actual = this.parent.getBasePosition(getIndex());
-    /*if (!initialBase.equals(actual)) {
-      println("ERROR");
-      println(initialBase, actual);
-    }*/
     return actual;
   }
    

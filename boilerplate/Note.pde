@@ -69,7 +69,7 @@ class Note extends DurationElement implements Tangible {
   }
   
   float getWidth() {
-    return textWidth(getText());
+    return this.textWidth;
   }
   
   void draw() {
