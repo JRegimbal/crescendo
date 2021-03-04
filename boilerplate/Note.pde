@@ -77,4 +77,8 @@ class Note extends DurationElement implements Tangible {
   PVector force(PVector posEE) {
     return new PVector(0, 0);
   }
+
+  void play(){
+    //the frequencies are 
+  }
 }
