@@ -22,7 +22,7 @@ abstract class DurationElement extends OrderedMusicElement implements Duration {
   Fraction getDuration() {
     Fraction dur = getBaseDuration().getValue(); //wait we are using fraction here which I am not familiar with
     if (this.dotted) {
-      Fraction nextSmallest= Fraction.getReducedFraction(1, dur.getDenominator()*2);
+      Fraction nextSmallest= Fraction.of(1, dur.getDenominator()*2);
       dur= dur.add(nextSmallest);
     }
     return dur;

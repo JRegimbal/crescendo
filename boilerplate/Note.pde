@@ -77,7 +77,7 @@ class Note extends DurationElement implements Tangible {
     String text = getText();
     PVector pos = getPosition();
     text(text, pos.x, pos.y);
-    if(mouseX==pos.x && mouseY==pos.y){
+    if(mouseX-pos.x <10 && mouseY-pos.y<10){
       thread("play");
     }
   }
@@ -111,11 +111,11 @@ class Note extends DurationElement implements Tangible {
     }
     float frequency= (float) (refnote* Math.pow(2, (this.location-1)/12));
     sine.freq(frequency);
-    sine.play();
     //making sure that the thing plays for the appropriate amount of time
     double currentTime= millis();
-    if((millis()-currentTime)== this.durationMs()){
-      sine.stop();
+    while((millis()-currentTime) < this.durationMs()){
+      sine.play();
     }
+    sine.stop();
   }
 }
