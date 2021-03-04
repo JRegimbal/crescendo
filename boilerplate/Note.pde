@@ -86,19 +86,20 @@ class Note extends DurationElement implements Tangible {
     //the notes can be found by taking the starting note and doing the following calculation: Freq = note x 2^N/12
     //the clef will determine the starting note
     sh= this.ClefShape;
+    double refnote= 0.0;
     if (sh == ClefShape.G) {  //treble clef
       //the first note is the one on the first staff line- so for this clef it is E4
-      double refnote= 329.628;
+      refnote= 329.628;
     }
     else if (sh == ClefShape.C) { //baritone clef??
       //the reference note is F3
-      double refnote= 174.61;
+      refnote= 174.61;
     }
     else {      // ClefShape.F aka bass clef
       //the reference note is G2
-      double refnote= 98.00;
+      refnote= 98.00;
     }
-    double frequency= refnote* Math.pow(2, (this.location()-1)/12);
+    double frequency= refnote* Math.pow(2, (this.location-1)/12);
     //We need to import the sound module to make this work
   }
 }
