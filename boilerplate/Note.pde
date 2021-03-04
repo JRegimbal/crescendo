@@ -1,9 +1,10 @@
 import processing.sound.*;
 Sound sound;
+SinOsc sine = new SinOsc(this);
 
 class Note extends DurationElement implements Tangible, Runnable{
   int location;  // number of lines and spacing where space below the first line is 0
-  public SinOsc sine;  //each note has its own sine wave
+  //SinOsc sine;  each note has its own sine wave
   /** Get the previous clef: this.getPrevious(Clef.class);
     * Get the previous time signature: this.getPrevious(TimeSignature.class);
     */
