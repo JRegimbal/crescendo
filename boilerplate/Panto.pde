@@ -1,3 +1,5 @@
+/** Just an extra file to organize pantograph specific things. */
+
 /* Screen and world setup parameters */
 float             pixelsPerMeter                      = 4000.0;
 float             radsPerDegree                       = 0.01745;

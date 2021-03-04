@@ -1,3 +1,4 @@
+/** Class for encoding rests. */
 class Rest extends DurationElement {
   String text;
   PVector pos;

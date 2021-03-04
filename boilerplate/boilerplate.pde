@@ -68,11 +68,13 @@ void setup() {
 void draw() {
   if (renderingForce == false) {
     background(255);
+    // The order here is important!
     s.draw();
     update_animation(angles.x * radsPerDegree, angles.y * radsPerDegree, posEE.x, posEE.y);
   }
 }
 
+// Zero the Haply before ending
 void exit() {
   handle.cancel(true);
   scheduler.shutdown();
@@ -81,6 +83,7 @@ void exit() {
   super.exit();
 }
 
+// Haptics thread
 class SimulationThread implements Runnable {
   public void run() {
     renderingForce = true;

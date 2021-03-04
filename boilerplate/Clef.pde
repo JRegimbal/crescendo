@@ -1,3 +1,6 @@
+/**
+ * Encodes clef, position, and key signature
+ */
 class Clef extends OrderedMusicElement {
   ClefShape shape;
   KeySignature sig;

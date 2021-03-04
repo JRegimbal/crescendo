@@ -1,3 +1,6 @@
+/**
+ * Just a time signature that can appear.
+ */
 class TimeSignature extends OrderedMusicElement {
   
   int num;

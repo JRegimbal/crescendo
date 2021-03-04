@@ -1,3 +1,6 @@
+/**
+ * Implements note elements. Viewable, tangible, audible.
+ */
 class Note extends DurationElement implements Tangible {
   int location;  // number of lines and spacing where space below the first line is 0
   float textWidth;

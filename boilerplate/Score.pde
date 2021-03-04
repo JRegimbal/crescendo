@@ -1,5 +1,9 @@
 import java.util.ArrayList;
 
+/**
+ * Score class. Contains musical elements, defines the appearance of the score,
+ * is responsible for calling the required functions for rendering on different modalities.
+ */
 public class Score {
   PFont smuflFont;
   final static int lineSpacing = 20;  // px
