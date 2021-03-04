@@ -3,9 +3,10 @@ interface Audible {
 }
 
 interface Tangible {
-  PVector force(PVector posEE);
+  PVector force(PVector posEE, PVector velEE);
 }
 
 interface Viewable {
   void draw();
+  void update();
 }

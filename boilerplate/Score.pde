@@ -40,12 +40,23 @@ public class Score {
     textAlign(CENTER);
     fill(0);
     for (PShape line : lines) {
+      println(width);
       shape(line);
     }
     
     for (OrderedMusicElement element : elements) {
       element.draw();
     }
+  }
+  
+  public PVector force(PVector posEE, PVector velEE) {
+    PVector force = new PVector(0, 0);
+    for (OrderedMusicElement element : elements) {
+      if (element instanceof Tangible) {
+        force.set(force.add(((Tangible)element).force(posEE, velEE)));
+      }
+    }
+    return force;
   }
     
 }

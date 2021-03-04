@@ -1,3 +1,29 @@
+import processing.serial.*;
+import static java.util.concurrent.TimeUnit.*;
+import java.util.concurrent.*;
+
+private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+
+/** Haply setup */
+Board haplyBoard;
+Device widget;
+Mechanisms pantograph;
+
+byte widgetID = 5;
+int CW = 0;
+int CCW = 1;
+boolean renderingForce = false;
+long baseFrameRate = 120;
+ScheduledFuture<?> handle;
+
+PVector angles = new PVector(0, 0);
+PVector torques = new PVector(0 ,0);
+PVector posEE = new PVector(0, 0);
+PVector posEELast = new PVector(0, 0);
+PVector velEE = new PVector(0, 0);
+PVector fEE = new PVector(0, 0);
+
+/** Music notation info */
 Score s;
 Clef c;
 TimeSignature t;
@@ -5,7 +31,19 @@ Rest r, r2;
 Note n, n1;
 
 void setup() {
-  size(640, 320);
+  size(1000, 650);
+  /** Haply */
+  haplyBoard = new Board(this, Serial.list()[0], 0);
+  widget = new Device(widgetID, haplyBoard);
+  pantograph = new Pantograph();
+  widget.set_mechanism(pantograph);
+  widget.add_actuator(1, CCW, 2);
+  widget.add_actuator(2, CW, 1);
+  widget.add_encoder(1, CCW, 241, 10752, 2);
+  widget.add_encoder(2, CW, -61, 10752, 1);
+  widget.device_set_parameters();
+  
+  /** Score */
   s = new Score();
   c = new Clef(s, ClefShape.G, KeySignature.DMaj);
   t = new TimeSignature(s, 3, 4);
@@ -16,9 +54,55 @@ void setup() {
   n1 = new Note(s, BaseDuration.EIGHTH, 0);
   r2 = new Rest(s, BaseDuration.QUARTER);
   println(s.elements.size());
+  
+  s.draw();
+  panto_setup();
+  
+  /** Spawn haptics thread */
+  SimulationThread st = new SimulationThread();
+  handle = scheduler.scheduleAtFixedRate(st, 1, 1, MILLISECONDS);
 }
 
 void draw() {
-  background(255);
-  s.draw();
+  if (renderingForce == false) {
+    background(255);
+    s.draw();
+    update_animation(angles.x * radsPerDegree, angles.y * radsPerDegree, posEE.x, posEE.y);
+  }
+}
+
+void exit() {
+  handle.cancel(true);
+  scheduler.shutdown();
+  widget.set_device_torques(new float[]{0, 0});
+  widget.device_write_torques();
+  super.exit();
+}
+
+class SimulationThread implements Runnable {
+  public void run() {
+    renderingForce = true;
+    if (haplyBoard.data_available()) {
+      widget.device_read_data();
+      angles.set(widget.get_device_angles());
+      posEE.set(widget.get_device_position(angles.array()));
+      posEE.set(device_to_graphics(posEE));
+      velEE.set((posEE.copy().sub(posEELast)).div(0.001));
+      posEELast.set(posEE);
+      fEE.set(s.force(posEE, velEE));
+    }
+    
+    torques.set(widget.set_device_torques(fEE.array()));
+    widget.device_write_torques();
+    renderingForce = false;
+  }
+}
+
+/** Helper */
+PVector device_to_graphics(PVector deviceFrame) {
+  return deviceFrame.set(-deviceFrame.x, deviceFrame.y);
+}
+
+PVector graphics_to_device(PVector graphicsFrame) {
+  return graphicsFrame.set(-graphicsFrame.x, graphicsFrame.y);
 }

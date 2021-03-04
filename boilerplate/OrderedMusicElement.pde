@@ -25,6 +25,10 @@ abstract class OrderedMusicElement implements Viewable {
     return;
   }
   
+  void update() {
+    return;
+  }
+  
   OrderedMusicElement getPrevious(Class c) {
     int idx = this.parent.elements.indexOf(this);
     if (idx == -1) {

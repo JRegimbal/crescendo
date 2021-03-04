@@ -78,7 +78,7 @@ class Note extends DurationElement implements Tangible {
     
   
   // TODO Update Implementation
-  PVector force(PVector posEE) {
+  PVector force(PVector posEE, PVector velEE) {
     return new PVector(0, 0);
   }
 }
