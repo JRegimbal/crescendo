@@ -1,6 +1,10 @@
 class Note extends DurationElement implements Tangible {
   int location;  // number of lines and spacing where space below the first line is 0
   
+  /** Get the previous clef: this.getPrevious(Clef.class);
+    * Get the previous time signature: this.getPrevious(TimeSignature.class);
+    */
+  
   public Note (Score s, BaseDuration dur, boolean dotted, int location) {
     super(s);
     this.duration = dur;
