@@ -38,11 +38,15 @@ abstract class DurationElement extends OrderedMusicElement implements Duration {
     OrderedMusicElement e = (OrderedMusicElement) this;
     double tempo = e.parent.tempo;
     System.out.println("Tempo: "+tempo);
-    TimeSignature ts = e.parent.timeSig;
-    System.out.println("time sig: "+ts.num+" "+ts.den);
-    Fraction tsFrac= Fraction.of(1, ts.den);
-    if(ts==null){
-      tsFrac= Fraction.of(1, 4);  //we want just the denominator for the time 4/4
+    OrderedMusicElement tsObj = e.getPrevious(TimeSignature.class);
+    Fraction tsFrac;
+    if (tsObj != null) {
+      TimeSignature ts = (TimeSignature) e.getPrevious(TimeSignature.class);
+      println("Time sig:", ts.num, ts.den);
+      tsFrac = Fraction.of(1, ts.den);
+    }
+    else {
+      tsFrac = Fraction.of(1, 4);
     }
     double durationMs = 60/tempo;
     Fraction shape2timeFrac= (shape.divide(tsFrac));
