@@ -8,9 +8,11 @@ Note n, n1;
 
 void setup() {
   size(640, 320);
+  
   s = new Score(120);
   c = new Clef(s, ClefShape.G, KeySignature.DMaj);
   t = new TimeSignature(s, 3, 4);
+  s.setTimeSig(t);
   r = new Rest(s, BaseDuration.HALF);
   // Make a new quarter note that is dotted and one space up from the first staff line
   n = new Note(s, BaseDuration.QUARTER, true, 1);

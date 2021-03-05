@@ -10,6 +10,7 @@ public class Score {
   final int elemMargin = 2 * lineSpacing;
   final int elemSpacing = totalHeight;
   public int tempo;
+  public TimeSignature timeSig;
 
   public ArrayList<OrderedMusicElement> elements = new ArrayList();
   PShape[] lines = new PShape[5];
@@ -22,6 +23,11 @@ public class Score {
       lines[i].setStroke(strokeWidth);
     }
     this.tempo= bpm;
+    //this.timeSig= ts;
+  }
+  
+  void setTimeSig(TimeSignature ts){
+    this.timeSig= ts;
   }
   
   PVector getBasePosition(int i) {
