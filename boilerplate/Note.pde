@@ -113,7 +113,7 @@ class Note extends DurationElement implements Tangible, Runnable{
     if(sh== null){
       sh= ClefShape.G;
     }
-    double refnote= 0.0;
+    float refnote= 0.0;
     if (sh == ClefShape.G) {  //treble clef
       //the first note is the one on the first staff line- so for this clef it is E4
       refnote= 329.628;
@@ -126,7 +126,9 @@ class Note extends DurationElement implements Tangible, Runnable{
       //the reference note is G2
       refnote= 98.00;
     }
-    float frequency= (float) (refnote* Math.pow(2, (this.location-1)/12));
+    System.out.println(this.location);
+    float loc= float(this.location);
+    float frequency= refnote* (float) Math.pow(2, (loc/12.0));
     System.out.println(frequency);
     sine.freq(frequency);
     sine.amp(0.5);
