@@ -1,6 +1,5 @@
 import processing.sound.*;
-Sound sound;
-SinOsc sine = new SinOsc(this);
+PApplet p = this;
 
 class Note extends DurationElement implements Tangible, Runnable{
   int location;  // number of lines and spacing where space below the first line is 0
@@ -9,11 +8,16 @@ class Note extends DurationElement implements Tangible, Runnable{
     * Get the previous time signature: this.getPrevious(TimeSignature.class);
     */
   
+  NoteState state;
+  SinOsc sine;
+  
   public Note (Score s, BaseDuration dur, boolean dotted, int location) {
     super(s);
     this.duration = dur;
     this.dotted = dotted;
     this.location = location;
+    this.state = NoteState.NOT_PLAYING;
+    this.sine = new SinOsc(p);
   }
   public Note(Score s) {
     this(s, BaseDuration.QUARTER, false, 0);
@@ -78,10 +82,20 @@ class Note extends DurationElement implements Tangible, Runnable{
     String text = getText();
     PVector pos = getPosition();
     text(text, pos.x, pos.y);
-    getSine();
-    if(mouseX-pos.x <10 && mouseY-pos.y<10){
-      Thread thread= new Thread(this);
-      thread.run();
+
+    switch (this.state) {
+      case NOT_PLAYING:
+      if (pos.sub(new PVector(mouseX, mouseY)).mag() < 10) {
+        this.state = NoteState.START_PLAYING;
+      }
+      break;
+      case START_PLAYING:
+      Thread t = new Thread(this);
+      this.state = NoteState.PLAYING;
+      t.run();
+      case PLAYING:
+      default:
+      break;
     }
   }
     
@@ -120,12 +134,22 @@ class Note extends DurationElement implements Tangible, Runnable{
   }
 
   void run(){
+    println("Hit");
+    getSine();
     //making sure that the thing plays for the appropriate amount of time
     double currentTime= millis();
-    while((millis()-currentTime) < this.durationMs()){
-      sine.play();
-      System.out.println("hit");
+    sine.play();
+    double dur = this.durationMs();
+    while((millis()-currentTime) < dur){
+      delay(100);
     }
     sine.stop();
+    this.state = NoteState.NOT_PLAYING;
   }
 }
+
+enum NoteState {
+    NOT_PLAYING,
+    START_PLAYING,
+    PLAYING,
+  };
