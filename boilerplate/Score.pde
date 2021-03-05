@@ -13,11 +13,12 @@ public class Score {
   final int marginHorizontal = 0;
   final int elemMargin = 2 * lineSpacing;
   final int elemSpacing = totalHeight;
+  public int tempo;
 
   public ArrayList<OrderedMusicElement> elements = new ArrayList();
   PShape[] lines = new PShape[5];
   
-  public Score() {
+  public Score(int bpm) {
     this.elements.clear();
     this.smuflFont = createFont("Bravura.otf", totalHeight);
     textFont(smuflFont);
@@ -25,6 +26,8 @@ public class Score {
       lines[i] = createShape(LINE, 0 + marginHorizontal, 0 + marginVertical + i * lineSpacing, width - marginHorizontal, marginVertical + i * lineSpacing);
       lines[i].setStroke(strokeWidth);
     }
+    this.tempo= bpm;
+    //this.timeSig= ts;
   }
   
   PVector getBasePosition(int i) {

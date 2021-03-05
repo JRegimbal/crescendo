@@ -17,13 +17,13 @@ class Clef extends OrderedMusicElement {
     this.initial = true;
     shape = sh;
     this.sig = sig;
-    if (sh == ClefShape.G) {
+    if (sh == ClefShape.G) {  //treble clef
       line = 2;
     }
-    else if (sh == ClefShape.C) {
+    else if (sh == ClefShape.C) { //baritone clef??
       line = 3;
     }
-    else {      // ClefShape.F
+    else {      // ClefShape.F aka bass clef
       line = 4;
     }
     this.clefWidth = textWidth(this.shape.getGlyph());

@@ -44,9 +44,9 @@ void setup() {
   widget.add_encoder(1, CCW, 241, 10752, 2);
   widget.add_encoder(2, CW, -61, 10752, 1);
   widget.device_set_parameters();
-  
+
   /** Score */
-  s = new Score();
+  s = new Score(120);
   c = new Clef(s, ClefShape.G, KeySignature.DMaj);
   t = new TimeSignature(s, 3, 4);
   r = new Rest(s, BaseDuration.HALF);
@@ -56,10 +56,10 @@ void setup() {
   n1 = new Note(s, BaseDuration.EIGHTH, 0);
   r2 = new Rest(s, BaseDuration.QUARTER);
   println(s.elements.size());
-  
+
   s.draw();
   panto_setup();
-  
+
   /** Spawn haptics thread */
   SimulationThread st = new SimulationThread();
   handle = scheduler.scheduleAtFixedRate(st, 1, 1, MILLISECONDS);
@@ -96,7 +96,7 @@ class SimulationThread implements Runnable {
       posEELast.set(posEE);
       fEE.set(s.force(posEE, velEE));
     }
-    
+
     torques.set(widget.set_device_torques(fEE.array()));
     widget.device_write_torques();
     renderingForce = false;

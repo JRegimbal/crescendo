@@ -20,14 +20,40 @@ abstract class DurationElement extends OrderedMusicElement implements Duration {
   boolean isDotted() { return dotted; }
   
   Fraction getDuration() {
-    Fraction dur = getBaseDuration().getValue();
-    if (this.dotted) {
-      // include next smallest duration
+    Fraction dur = getBaseDuration().getValue(); //wait we are using fraction here which I am not familiar with
+    System.out.println("fraction: "+dur);
+    if (this.isDotted()) {
+      System.out.println("strawberry");
+      Fraction nextSmallest= Fraction.of(1, dur.getDenominator()*2);
+      dur= dur.add(nextSmallest);
+      System.out.println("berry "+dur);
     }
     return dur;
   }
   
   double durationMs() {
-    return Double.NaN;
+    Fraction shape= this.getDuration();
+    System.out.println("dalmation: "+shape);
+    //the calls for time signature and tempo are probably wrong
+    OrderedMusicElement e = (OrderedMusicElement) this;
+    double tempo = e.parent.tempo;
+    System.out.println("Tempo: "+tempo);
+    OrderedMusicElement tsObj = e.getPrevious(TimeSignature.class);
+    Fraction tsFrac;
+    if (tsObj != null) {
+      TimeSignature ts = (TimeSignature) e.getPrevious(TimeSignature.class);
+      println("Time sig:", ts.num, ts.den);
+      tsFrac = Fraction.of(1, ts.den);
+    }
+    else {
+      tsFrac = Fraction.of(1, 4);
+    }
+    double durationMs = 60/tempo;
+    Fraction shape2timeFrac= (shape.divide(tsFrac));
+    System.out.println("shape2time: "+shape2timeFrac);
+    double shape2time= ((double) shape2timeFrac.getNumerator())/((double) shape2timeFrac.getDenominator());
+    durationMs= durationMs*shape2time*1000;
+    System.out.println("duration: "+durationMs);
+    return durationMs;
   }
 }
