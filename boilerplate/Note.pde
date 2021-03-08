@@ -136,7 +136,6 @@ class Note extends DurationElement implements Tangible, Runnable{
   }
 
   void run(){
-    println("Hit");
     getSine();
     //making sure that the thing plays for the appropriate amount of time
     double currentTime= millis();
