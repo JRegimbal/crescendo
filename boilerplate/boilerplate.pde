@@ -2,6 +2,7 @@ import processing.serial.*;
 import static java.util.concurrent.TimeUnit.*;
 import java.util.concurrent.*;
 import java.lang.System;
+import controlP5.*;
 
 private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
@@ -32,6 +33,8 @@ Rest r, r2;
 Note n, n1;
 BarLine b, b2;
 
+ControlP5 cp5;
+
 void setup() {
   size(1000, 650);
   frameRate(baseFrameRate);
@@ -57,9 +60,16 @@ void setup() {
   // Make a new eighth note on the first staff line
   n1 = new Note(s, BaseDuration.EIGHTH, 0);
   r2 = new Rest(s, BaseDuration.QUARTER);
-  println(s.elements.size());
 
-  s.draw();
+  cp5 = new ControlP5(this);
+  cp5.addSlider("Measure")
+     .setPosition(40, height / 2 - 120)
+     .setSize(20, 250)
+     .setRange(s.totalBars(), 1)
+     .setValue(1)
+     .setNumberOfTickMarks(s.totalBars())
+     .setColorValueLabel(255);
+
   panto_setup();
 
   /** Spawn haptics thread */
@@ -71,7 +81,9 @@ void draw() {
   if (renderingForce == false) {
     background(255);
     // The order here is important!
-    s.draw(1);
+    s.draw(
+      (int)cp5.get("Measure").getValue() - 1
+    );
     update_animation(angles.x * radsPerDegree, angles.y * radsPerDegree, posEE.x, posEE.y);
   }
 }

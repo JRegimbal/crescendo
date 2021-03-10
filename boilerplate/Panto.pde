@@ -23,6 +23,7 @@ void panto_setup() {
 }
 
 void create_pantagraph(){
+  pushMatrix();
   float lAni = pixelsPerMeter * l;
   float LAni = pixelsPerMeter * L;
   float rEEAni = pixelsPerMeter * rEE;
@@ -45,11 +46,11 @@ void create_pantagraph(){
   endEffector = createShape(ELLIPSE, deviceOrigin.x, deviceOrigin.y, 2*rEEAni, 2*rEEAni);
   endEffector.setStroke(color(0));
   strokeWeight(5);
-  
+  popMatrix();
 }
 
 void update_animation(float th1, float th2, float xE, float yE){
- 
+  pushMatrix();
   float lAni = pixelsPerMeter * l;
   float LAni = pixelsPerMeter * L;
   
@@ -69,4 +70,5 @@ void update_animation(float th1, float th2, float xE, float yE){
   
   translate(xE, yE);
   shape(endEffector);
+  popMatrix();
 }

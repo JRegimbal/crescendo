@@ -70,6 +70,15 @@ public class Score {
     return bars;
   }
   
+  public int totalBars() {
+    int barCount = getBars().size();
+    if (!(elements.get(elements.size() - 1) instanceof BarLine)) {
+      // implicit last bar
+      barCount += 1;
+    }
+    return barCount;
+  } 
+  
   /** Draw only the ith measure */
   public void draw(int i) {
     textFont(smuflFont);
