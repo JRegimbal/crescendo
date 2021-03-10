@@ -87,6 +87,31 @@ class Note extends DurationElement implements Tangible, Runnable{
     String text = getText();
     PVector pos = getPosition();
     text(text, pos.x, pos.y);
+    
+    // Draw ledger lines when applicable
+    if (location < -1) {
+      // At least one line below bottom
+      int temp = location;
+      final int extra = this.parent.lineSpacing / 3;
+      while (temp < -1) {
+        strokeWeight(this.parent.strokeWidth);
+        PShape l = createShape(LINE, pos.x - getWidth() / 2 - extra, pos.y, pos.x + getWidth() / 2 + extra, pos.y);
+        shape(l);
+        pos.y -= this.parent.lineSpacing;
+        temp += 2;
+      }
+    }
+    if (location > 9) {
+      int temp = location;
+      final int extra = this.parent.lineSpacing / 3;
+      while (temp > 9) {
+        strokeWeight(this.parent.strokeWidth);
+        PShape l = createShape(LINE, pos.x - getWidth() / 2 - extra, pos.y, pos.x + getWidth() / 2 + extra, pos.y);
+        shape(l);
+        pos.y += this.parent.lineSpacing;
+        temp -= 2;
+      }
+    }
 
     switch (this.state) {
       case NOT_PLAYING:

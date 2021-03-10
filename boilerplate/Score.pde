@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Score {
   PFont smuflFont;
   final static int lineSpacing = 20;  // px
-  final int strokeWidth = 4;   // px
+  final int strokeWidth = 2;   // px
   final int totalHeight = lineSpacing * 4;
   final int marginVertical = (height - totalHeight) / 2;
   final int marginHorizontal = 200;
@@ -24,8 +24,8 @@ public class Score {
     this.smuflFont = createFont("Bravura.otf", totalHeight);
     textFont(smuflFont);
     for (int i = 0; i < lines.length; i++) {
+      strokeWeight(strokeWidth);
       lines[i] = createShape(LINE, 0 + marginHorizontal, 0 + marginVertical + i * lineSpacing, width - marginHorizontal, marginVertical + i * lineSpacing);
-      lines[i].setStroke(strokeWidth);
     }
     this.tempo = bpm;
   }
