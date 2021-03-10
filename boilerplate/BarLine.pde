@@ -18,6 +18,8 @@ class BarLine extends OrderedMusicElement {
   
   float getWidth() { return barWidth; }
   
+  float getPadding() { return 2 * this.parent.lineSpacing; }
+  
   void draw() {
     PVector pos = getPosition();
     text("\ue030", pos.x, pos.y);

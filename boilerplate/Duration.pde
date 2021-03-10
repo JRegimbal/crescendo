@@ -21,12 +21,9 @@ abstract class DurationElement extends OrderedMusicElement implements Duration {
   
   Fraction getDuration() {
     Fraction dur = getBaseDuration().getValue(); //wait we are using fraction here which I am not familiar with
-    System.out.println("fraction: "+dur);
     if (this.isDotted()) {
-      System.out.println("strawberry");
       Fraction nextSmallest= Fraction.of(1, dur.getDenominator()*2);
       dur= dur.add(nextSmallest);
-      System.out.println("berry "+dur);
     }
     return dur;
   }
@@ -55,5 +52,10 @@ abstract class DurationElement extends OrderedMusicElement implements Duration {
     durationMs= durationMs*shape2time*1000;
     System.out.println("duration: "+durationMs);
     return durationMs;
+  }
+  
+  float getPadding() {
+    float base = 2 * this.parent.lineSpacing;
+    return base + this.parent.lineSpacing * max(4 - getDuration().getDenominator(), 0);
   }
 }

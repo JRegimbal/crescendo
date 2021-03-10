@@ -36,6 +36,9 @@ abstract class OrderedMusicElement implements Viewable {
   /** Returns width of this element in pixels */
   abstract float getWidth();
   
+  /** Returns additional padding to the right */
+  abstract float getPadding();
+  
   /** Draw this element (must be implemented) */
   void draw() {
     return;

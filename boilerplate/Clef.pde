@@ -83,6 +83,8 @@ class Clef extends OrderedMusicElement {
     return w;
   }
   
+  float getPadding() { return 2 * this.parent.lineSpacing; }
+  
   void draw() {
     String text = this.shape.getGlyph();
     PVector pos = getPosition();

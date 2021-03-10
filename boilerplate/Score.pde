@@ -40,7 +40,7 @@ public class Score {
       x = marginHorizontal + elemMargin;
     }
     else {
-      x = getBasePosition(i - 1).x + this.elements.get(i - 1).getWidth() + this.elements.get(i).getWidth();
+      x = getBasePosition(i - 1).x + this.elements.get(i - 1).getWidth() + this.elements.get(i-1).getPadding();
     }
     
     float y = marginVertical + totalHeight;

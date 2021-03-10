@@ -25,6 +25,10 @@ class TimeSignature extends OrderedMusicElement {
     return this.textWidth;
   }
   
+  float getPadding() {
+    return 2 * this.parent.lineSpacing;
+  }
+  
   String getText(int i) {
     String text = "";
     switch (i) {
