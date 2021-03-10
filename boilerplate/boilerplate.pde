@@ -27,11 +27,6 @@ PVector fEE = new PVector(0, 0);
 
 /** Music notation info */
 Score s;
-Clef c;
-TimeSignature t;
-Rest r, r2;
-Note n, n1;
-BarLine b, b2;
 
 ControlP5 cp5;
 
@@ -51,15 +46,42 @@ void setup() {
 
   /** Score */
   s = new Score(120);
-  c = new Clef(s, ClefShape.G, KeySignature.DMaj);
-  t = new TimeSignature(s, 3, 4);
-  r = new Rest(s, BaseDuration.HALF);
-  // Make a new quarter note that is dotted and one space up from the first staff line
-  n = new Note(s, BaseDuration.QUARTER, true, 1);
-  b = new BarLine(s);
-  // Make a new eighth note on the first staff line
-  n1 = new Note(s, BaseDuration.EIGHTH, 0);
-  r2 = new Rest(s, BaseDuration.QUARTER);
+  new Clef(s, ClefShape.G, KeySignature.CMaj);
+  new TimeSignature(s, 4, 4);
+  new Note(s, BaseDuration.QUARTER, 0);
+  new Note(s, BaseDuration.QUARTER, -1);
+  new Note(s, BaseDuration.QUARTER, -2);
+  new Note(s, BaseDuration.QUARTER, -1);
+  new BarLine(s);
+  new Note(s, BaseDuration.QUARTER, 0);
+  new Note(s, BaseDuration.QUARTER, 0);
+  new Note(s, BaseDuration.HALF, 0);
+  new BarLine(s);
+  new Note(s, BaseDuration.QUARTER, -1);
+  new Note(s, BaseDuration.QUARTER, -1);
+  new Note(s, BaseDuration.HALF, -1);
+  new BarLine(s);
+  new Note(s, BaseDuration.QUARTER, 0);
+  new Note(s, BaseDuration.QUARTER, 2);
+  new Note(s, BaseDuration.HALF, 2);
+  new BarLine(s);
+  new Note(s, BaseDuration.QUARTER, 0);
+  new Note(s, BaseDuration.QUARTER, -1);
+  new Note(s, BaseDuration.QUARTER, -2);
+  new Note(s, BaseDuration.QUARTER, -1);
+  new BarLine(s);
+  new Note(s, BaseDuration.QUARTER, 0);
+  new Note(s, BaseDuration.QUARTER, 0);
+  new Note(s, BaseDuration.QUARTER, 0);
+  new Note(s, BaseDuration.QUARTER, 0);
+  new BarLine(s);
+  new Note(s, BaseDuration.QUARTER, -1);
+  new Note(s, BaseDuration.QUARTER, -1);
+  new Note(s, BaseDuration.QUARTER, 0);
+  new Note(s, BaseDuration.QUARTER, -1);
+  new BarLine(s);
+  new Note(s, BaseDuration.WHOLE, -2);
+  new BarLine(s);
 
   cp5 = new ControlP5(this);
   cp5.addSlider("Measure")
