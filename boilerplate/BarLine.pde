@@ -1,11 +1,13 @@
 /**
  * Marks boundary of bar/measure
+ * This should eventually use our own and support final barlines
  */
 class BarLine extends OrderedMusicElement {
-  float barWidth = this.parent.lineSpacing;
+  float barWidth;
   
   BarLine(Score s) {
     super(s);
+    barWidth = textWidth("\ue030");
   }
   
   PVector getPosition() {
@@ -18,8 +20,6 @@ class BarLine extends OrderedMusicElement {
   
   void draw() {
     PVector pos = getPosition();
-    PShape l = createShape(LINE, pos.x, pos.y, pos.x, pos.y - 4 * this.parent.lineSpacing);
-    l.setStroke(this.parent.strokeWidth);
-    shape(l);
+    text("\ue030", pos.x, pos.y);
   }
 }

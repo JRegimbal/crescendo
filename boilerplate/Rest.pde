@@ -1,7 +1,6 @@
 /** Class for encoding rests. */
 class Rest extends DurationElement {
   String text;
-  PVector pos;
   boolean initial;
   float textWidth;
   
@@ -56,11 +55,8 @@ class Rest extends DurationElement {
   }
     
   void draw() {
-    if (this.initial) {
-      text = getText();
-      pos = getPosition();
-      initial = false;
-    }
+    text = getText();
+    PVector pos = getPosition();
     text(text, pos.x, pos.y);
   }   
 }

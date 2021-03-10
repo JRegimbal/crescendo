@@ -30,7 +30,7 @@ Clef c;
 TimeSignature t;
 Rest r, r2;
 Note n, n1;
-BarLine b;
+BarLine b, b2;
 
 void setup() {
   size(1000, 650);
@@ -71,7 +71,7 @@ void draw() {
   if (renderingForce == false) {
     background(255);
     // The order here is important!
-    s.draw();
+    s.draw(1);
     update_animation(angles.x * radsPerDegree, angles.y * radsPerDegree, posEE.x, posEE.y);
   }
 }
