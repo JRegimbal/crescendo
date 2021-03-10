@@ -30,6 +30,7 @@ Clef c;
 TimeSignature t;
 Rest r, r2;
 Note n, n1;
+BarLine b;
 
 void setup() {
   size(1000, 650);
@@ -52,6 +53,7 @@ void setup() {
   r = new Rest(s, BaseDuration.HALF);
   // Make a new quarter note that is dotted and one space up from the first staff line
   n = new Note(s, BaseDuration.QUARTER, true, 1);
+  b = new BarLine(s);
   // Make a new eighth note on the first staff line
   n1 = new Note(s, BaseDuration.EIGHTH, 0);
   r2 = new Rest(s, BaseDuration.QUARTER);
