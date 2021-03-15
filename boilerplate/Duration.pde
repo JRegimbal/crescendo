@@ -30,16 +30,15 @@ abstract class DurationElement extends OrderedMusicElement implements Duration {
   
   double durationMs() {
     Fraction shape= this.getDuration();
-    System.out.println("dalmation: "+shape);
     //the calls for time signature and tempo are probably wrong
     OrderedMusicElement e = (OrderedMusicElement) this;
     double tempo = e.parent.tempo;
-    System.out.println("Tempo: "+tempo);
+    // System.out.println("Tempo: "+tempo);
     OrderedMusicElement tsObj = e.getPrevious(TimeSignature.class);
     Fraction tsFrac;
     if (tsObj != null) {
       TimeSignature ts = (TimeSignature) e.getPrevious(TimeSignature.class);
-      println("Time sig:", ts.num, ts.den);
+      // println("Time sig:", ts.num, ts.den);
       tsFrac = Fraction.of(1, ts.den);
     }
     else {
@@ -47,10 +46,10 @@ abstract class DurationElement extends OrderedMusicElement implements Duration {
     }
     double durationMs = 60/tempo;
     Fraction shape2timeFrac= (shape.divide(tsFrac));
-    System.out.println("shape2time: "+shape2timeFrac);
+    // System.out.println("shape2time: "+shape2timeFrac);
     double shape2time= ((double) shape2timeFrac.getNumerator())/((double) shape2timeFrac.getDenominator());
     durationMs= durationMs*shape2time*1000;
-    System.out.println("duration: "+durationMs);
+    // System.out.println("duration: "+durationMs);
     return durationMs;
   }
   
