@@ -3,8 +3,14 @@ import static java.util.concurrent.TimeUnit.*;
 import java.util.concurrent.*;
 import java.lang.System;
 import controlP5.*;
+import oscP5.*;
+import netP5.*;
 
 private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+final int destination = 8080;
+final int sourcePort = 8081;
+final NetAddress oscDestination = new NetAddress("127.0.0.1", destination);
+OscP5 oscP5;
 
 /** Haply setup */
 Board haplyBoard;
@@ -33,6 +39,8 @@ ControlP5 cp5;
 void setup() {
   size(1000, 650);
   frameRate(baseFrameRate);
+  /** Open Sound Control */
+  oscP5 = new OscP5(this, sourcePort);
   /** Haply */
   haplyBoard = new Board(this, Serial.list()[0], 0);
   widget = new Device(widgetID, haplyBoard);
