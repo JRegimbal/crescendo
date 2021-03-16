@@ -1,6 +1,3 @@
-import processing.sound.*;
-PApplet p = this;
-
 /**
  * Implements note elements. Viewable, tangible, audible.
  */
@@ -14,7 +11,6 @@ class Note extends DurationElement implements Tangible, Audible {
     */
 
   NoteState state;
-  SinOsc sine;
 
   public Note (Score s, BaseDuration dur, boolean dotted, int location) {
     super(s);
@@ -23,7 +19,6 @@ class Note extends DurationElement implements Tangible, Audible {
     this.location = location;
     this.textWidth = textWidth(getText());
     this.state = NoteState.NOT_PLAYING;
-    this.sine = new SinOsc(p);
   }
   public Note(Score s) {
     this(s, BaseDuration.QUARTER, false, 0);
@@ -171,9 +166,11 @@ class Note extends DurationElement implements Tangible, Audible {
   void play() {
     float frequency = getFrequency();
     double dur = this.durationMs();
+    // Osc type message. Related to crescendo project and it plays a note.
+    // Trying to follow good practices in case we expand
     OscMessage note = new OscMessage("/crescendo/play");
     note.add(frequency);
-    note.add((float)dur);
+    note.add((float)dur);  // Must cast to float as Pd does not support double precision
     oscP5.send(note, oscDestination);
     this.state = NoteState.PLAYING;
     startTime = millis();
