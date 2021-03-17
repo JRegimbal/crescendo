@@ -118,6 +118,19 @@ void draw() {
   }
 }
 
+void keyPressed() {
+  if (keyCode == DOWN) {
+    if (cp5.get("Measure").getValue() < cp5.get(Slider.class, "Measure").getMin()) {
+      cp5.get("Measure").setValue(cp5.get("Measure").getValue() + 1);
+    }
+  }
+  else if (keyCode == UP) {
+    if (cp5.get("Measure").getValue() > 1) {
+      cp5.get("Measure").setValue(cp5.get("Measure").getValue() - 1);
+    }
+  }
+}
+
 // Zero the Haply before ending
 void exit() {
   handle.cancel(true);
