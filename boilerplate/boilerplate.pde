@@ -31,6 +31,8 @@ PVector posEELast = new PVector(0, 0);
 PVector velEE = new PVector(0, 0);
 PVector fEE = new PVector(0, 0);
 
+boolean engaged = true;
+
 /** Music notation info */
 Score s;
 
@@ -129,6 +131,15 @@ void keyPressed() {
       cp5.get("Measure").setValue(cp5.get("Measure").getValue() - 1);
     }
   }
+  else if (keyCode == SHIFT) {
+    engaged = false;
+  }
+}
+
+void keyReleased() {
+  if (keyCode == SHIFT) {
+    engaged = true;
+  }
 }
 
 // Zero the Haply before ending
@@ -154,7 +165,12 @@ class SimulationThread implements Runnable {
       fEE.set(s.force(posEE, velEE));
     }
 
-    torques.set(widget.set_device_torques(fEE.array()));
+    if (engaged) {
+      torques.set(widget.set_device_torques(fEE.array()));
+    }
+    else {
+      torques.set(widget.set_device_torques(new float[]{0, 0}));
+    }
     widget.device_write_torques();
     renderingForce = false;
   }
