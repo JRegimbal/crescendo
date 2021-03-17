@@ -121,12 +121,31 @@ public class Score {
   
   public PVector force(PVector posEE, PVector velEE) {
     PVector force = new PVector(0, 0);
+    for (PShape line : lines) {
+      force.set(force.add(staffForce(posEE, velEE, line)));
+    }
     for (OrderedMusicElement element : elements) {
       if (element instanceof Tangible) {
         force.set(force.add(((Tangible)element).force(posEE, velEE)));
       }
     }
     return force;
+  }
+  
+  /** Get location in meters using the coordinate system for physics defined in Panto */
+  PVector getPhysicsPosition(PShape line) {
+    PVector pos = new PVector(line.getParams()[0], line.getParams()[1]);
+    pos.x -= width / 2;
+    pos.set(pos.div(pixelsPerMeter));
+    return pos;
+  }
+  
+  private PVector staffForce(PVector posEE, PVector velEE, PShape line) {
+    PVector linePos = getPhysicsPosition(line);
+    if (abs(posEE.y - linePos.y) < 0.0005) {
+      return new PVector(1, 1);
+    }
+    return new PVector(0, 0);
   }
     
 }
