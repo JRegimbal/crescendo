@@ -7,8 +7,8 @@ class Note extends DurationElement implements Tangible, Audible {
   float startTime;
 
   /** Get the previous clef: this.getPrevious(Clef.class);
-    * Get the previous time signature: this.getPrevious(TimeSignature.class);
-    */
+   * Get the previous time signature: this.getPrevious(TimeSignature.class);
+   */
 
   NoteState state;
 
@@ -41,30 +41,27 @@ class Note extends DurationElement implements Tangible, Audible {
   String getText() {
     String text = "";
     switch (this.duration) {
-      case WHOLE:
+    case WHOLE:
       text += "\ue1d2";
       break;
-      case HALF:
+    case HALF:
       if (location < 5) {  // point for switching to up/down stem
         text += "\ue1d3";
-      }
-      else {
+      } else {
         text += "\ue1d4";
       }
       break;
-      case QUARTER:
+    case QUARTER:
       if (location < 5) {
         text += "\ue1d5";
-      }
-      else {
+      } else {
         text += "\ue1d6";
       }
       break;
-      case EIGHTH:
+    case EIGHTH:
       if (location < 5) {
         text += "\ue1d7";
-      }
-      else {
+      } else {
         text += "\ue1d8";
       }
       break;
@@ -83,7 +80,7 @@ class Note extends DurationElement implements Tangible, Audible {
     String text = getText();
     PVector pos = getPosition();
     text(text, pos.x, pos.y);
-    
+
     // Draw ledger lines when applicable
     if (location < -1) {
       // At least one line below bottom
@@ -110,17 +107,17 @@ class Note extends DurationElement implements Tangible, Audible {
     }
 
     switch (this.state) {
-      case NOT_PLAYING:
+    case NOT_PLAYING:
       break;
-      case START_PLAYING:
+    case START_PLAYING:
       play();
       break;
-      case PLAYING:
+    case PLAYING:
       if (millis() - startTime > durationMs()) {
         this.state = NoteState.NOT_PLAYING;
       }
       break;
-      default:
+    default:
       break;
     }
   }
@@ -135,27 +132,59 @@ class Note extends DurationElement implements Tangible, Audible {
     } else if (this.state == NoteState.NOT_PLAYING) {
       this.state = NoteState.START_PLAYING;
     }
-    return new PVector(-1.1, -1.1);
+    float fx = 0;
+    float fy = 0;
+    switch (getText()) {
+    case "\ue1d2":
+      fx = 1.15*cos(atan(posDiff.x/posDiff.y));
+      fy = 1.15*sin(atan(posDiff.x/posDiff.y));
+      break;
+    case "\ue1d3":
+      fx = 1.15*cos(atan(posDiff.x/posDiff.y));
+      fy = 1.15*sin(atan(posDiff.x/posDiff.y));
+      break;
+    case "\ue1d4":
+      fx = 1.15*cos(atan(posDiff.x/posDiff.y));
+      fy = 1.15*sin(atan(posDiff.x/posDiff.y));
+      break;
+    case "\ue1d5":
+      fx = random(-1, 1);
+      fy = random(-1, 1);
+      break;
+    case "\ue1d6":
+      fx = random(-1, 1);
+      fy = random(-1, 1);
+      break;
+    case "\ue1d7":
+      fx = random(-1, 1);
+      fy = random(-1, 1);
+      break;
+    case "\ue1d8":
+      fx = random(-1, 1);
+      fy = random(-1, 1);
+      break;
+    }
+    fx = constrain(fx, -1.5, 1.5);
+    fy = constrain(fy, -1.5, 1.5);
+    return new PVector(fx, fy);
   }
 
-  float getFrequency(){
+  float getFrequency() {
     //the notes can be found by taking the starting note and doing the following calculation: Freq = note x 2^N/12
     //the clef will determine the starting note
     Clef c = (Clef) this.getPrevious(Clef.class);
     ClefShape sh = c.shape;
-    if(sh== null){
+    if (sh== null) {
       sh = ClefShape.G;
     }
     float refnote = 0.0;
     if (sh == ClefShape.G) {  //treble clef
       //the first note is the one on the first staff line- so for this clef it is E4
       refnote = 329.628;
-    }
-    else if (sh == ClefShape.C) { //baritone clef??
+    } else if (sh == ClefShape.C) { //baritone clef??
       //the reference note is F3
       refnote = 174.61;
-    }
-    else {      // ClefShape.F aka bass clef
+    } else {      // ClefShape.F aka bass clef
       //the reference note is G2
       refnote = 98.00;
     }
@@ -178,7 +207,7 @@ class Note extends DurationElement implements Tangible, Audible {
 }
 
 enum NoteState {
-    NOT_PLAYING,
-    START_PLAYING,
+  NOT_PLAYING, 
+    START_PLAYING, 
     PLAYING,
-  };
+};
