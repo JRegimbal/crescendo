@@ -80,6 +80,7 @@ class Note extends DurationElement implements Tangible, Audible {
   }
 
   void draw() {
+    final float threshold = 0.005;
     String text = getText();
     PVector pos = getPosition();
     text(text, pos.x, pos.y);
@@ -111,6 +112,9 @@ class Note extends DurationElement implements Tangible, Audible {
 
     switch (this.state) {
       case NOT_PLAYING:
+      if ((posEE.copy().sub(getPhysicsPosition())).mag() < threshold) {
+        this.state = NoteState.START_PLAYING;
+      } 
       break;
       case START_PLAYING:
       play();
@@ -130,12 +134,14 @@ class Note extends DurationElement implements Tangible, Audible {
   PVector force(PVector posEE, PVector velEE) {
     PVector posDiff = (posEE.copy().sub(getPhysicsPosition()));
     final float threshold = 0.005;
-    if (posDiff.mag() > threshold) {
-      return new PVector(0, 0);
-    } else if (this.state == NoteState.NOT_PLAYING) {
-      this.state = NoteState.START_PLAYING;
+    PVector force = new PVector(0, 0);
+    if (posDiff.mag() <= threshold) {
+      if (NOTES) {
+        force.x = -1.1;
+        force.y = -1.1;
+      }
     }
-    return new PVector(-1.1, -1.1);
+    return force;
   }
 
   float getFrequency(){

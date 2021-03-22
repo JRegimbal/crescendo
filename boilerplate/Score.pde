@@ -121,8 +121,10 @@ public class Score {
   
   public PVector force(PVector posEE, PVector velEE) {
     PVector force = new PVector(0, 0);
-    for (PShape line : lines) {
-      force.set(force.add(staffForce(posEE, velEE, line)));
+    if (STAFF_LINES) {
+      for (PShape line : lines) {
+        force.set(force.add(staffForce(posEE, velEE, line)));
+      }
     }
     for (OrderedMusicElement element : elements.subList(startIdx, endIdx)) {
       if (element instanceof Tangible) {
