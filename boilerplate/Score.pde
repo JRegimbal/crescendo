@@ -126,6 +126,15 @@ public class Score {
         force.set(force.add(staffForce(posEE, velEE, line)));
       }
     }
+    if (STAFF_GLOBAL) {
+      force.set(force.add(globalStaffForce(posEE, velEE)));
+    }
+    
+    if (DAMPING) {
+      final float damping = 10;
+      PVector fDamping = velEE.copy().mult(-damping);
+    }
+    
     for (OrderedMusicElement element : elements.subList(startIdx, endIdx)) {
       if (element instanceof Tangible) {
         force.set(force.add(((Tangible)element).force(posEE, velEE)));
@@ -145,13 +154,22 @@ public class Score {
   private PVector staffForce(PVector posEE, PVector velEE, PShape line) {
     PVector linePos = getPhysicsPosition(line);
     PVector force = new PVector(0, 0);
-    // Include dead band to prevent oscillations if you're staying on the line
-    if (abs(posEE.y - linePos.y) < 0.0005 && velEE.mag() > 0.01) {
-      force.set(velEE.copy().normalize().rotate(PI));
-      force.x = 0;
-      force.setMag(2);
+    final float epsilon = 1000;
+    final float fmax = 2;
+    float gaussian = (float) Math.exp(-Math.pow(epsilon * (posEE.y - linePos.y), 2));
+    force.y = fmax * gaussian;
+    return force;
+  }
+  
+  private PVector globalStaffForce(PVector posEE, PVector velEE) {
+    final float posY = (marginVertical - lineSpacing) / pixelsPerMeter;
+    final float k = 80; // N/m
+    // Only come into effect if end effector is below line
+    PVector force = new PVector(0, 0);
+    if (posEE.y - posY > 0) {
+      force.y = -k * (posEE.y - posY);
     }
     return force;
   }
-    
+      
 }

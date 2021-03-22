@@ -9,6 +9,8 @@ import netP5.*;
 /** Settings */
 final boolean NOTES = false;
 final boolean STAFF_LINES = true;
+final boolean STAFF_GLOBAL = true;
+final boolean DAMPING = true;
 /** End settings */
 
 private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
