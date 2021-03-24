@@ -142,10 +142,35 @@ public class Score {
   
   private PVector staffForce(PVector posEE, PVector velEE, PShape line) {
     PVector linePos = getPhysicsPosition(line);
+    PVector force= new PVector(0, 0);
+     //each case of these types of forces will get a different amount of force
     if (abs(posEE.y - linePos.y) < 0.0005) {
-      return new PVector(1, 1);
+      if(linePos.y == 0.07125){
+        System.out.println("hello");
+        return new PVector(1,1);
+      }
+      if(linePos.y == 0.07625){
+        System.out.println("how");
+        return new PVector(1,1.25);
+      }
+      if(linePos.y == 0.08125){
+        System.out.println("are");
+        return new PVector(1,1.5);
+      }
+      if(linePos.y == 0.08625){
+        System.out.println("you");
+        return new PVector(1,1.75);
+      }
+      if(linePos.y == 0.09125){
+        System.out.println("today");
+        return new PVector(1,2);
+      }
+      else{
+          System.out.println("didn't work");
+      }
+      //return new PVector(1, 1);
     }
-    return new PVector(0, 0);
+    return force;
   }
     
 }
