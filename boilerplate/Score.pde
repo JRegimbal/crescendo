@@ -157,7 +157,7 @@ public class Score {
     final float epsilon = 1000;
     final float fmax = 2;
     float gaussian = (float) Math.exp(-Math.pow(epsilon * (posEE.y - linePos.y), 2));
-    force.y = fmax * gaussian;
+    force.y = fmax * gaussian * Math.signum(posEE.y - linePos.y);
     return force;
   }
   
