@@ -6,7 +6,7 @@ import java.util.ArrayList;
  */
 public class Score {
   PFont smuflFont;
-  final static int lineSpacing = 20;  // px
+  final static int lineSpacing = 25;  // px
   final int strokeWidth = 2;   // px
   final int totalHeight = lineSpacing * 4;
   final int marginVertical = (height - totalHeight) / 2;
@@ -14,7 +14,7 @@ public class Score {
   final int elemMargin = 2 * lineSpacing;
   final int elemSpacing = totalHeight;
   public int tempo;
-  private int startIdx = 0;
+  private int startIdx = 0, endIdx = 0;
 
   public ArrayList<OrderedMusicElement> elements = new ArrayList();
   PShape[] lines = new PShape[5];
@@ -88,8 +88,8 @@ public class Score {
     
     ArrayList<OrderedMusicElement> bars = getBars();
     startIdx = 0;
-    int endIdx;
     if (bars.size() == 0) {
+      endIdx = elements.size();
       this.draw();
       return;
     }
@@ -124,7 +124,7 @@ public class Score {
     for (PShape line : lines) {
       force.set(force.add(staffForce(posEE, velEE, line)));
     }
-    for (OrderedMusicElement element : elements) {
+    for (OrderedMusicElement element : elements.subList(startIdx, endIdx)) {
       // TODO fix ghost notes bug
       if (element instanceof Tangible) {
         force.set(force.add(((Tangible)element).force(posEE, velEE)));
@@ -143,12 +143,14 @@ public class Score {
   
   private PVector staffForce(PVector posEE, PVector velEE, PShape line) {
     PVector linePos = getPhysicsPosition(line);
-    if (abs(posEE.y - linePos.y) < 0.0005 && velEE.mag() > 0.00) {
-      float fx = 0.9 * velEE.x/abs(velEE.x + 0.001);
-      float fy = 0.9 * velEE.y/abs(velEE.y + 0.001);
-      return new PVector(fx, fy);
+    PVector force = new PVector(0, 0);
+    // Include dead band to prevent oscillations if you're staying on the line
+    if (abs(posEE.y - linePos.y) < 0.0005 && velEE.mag() > 0.01) {
+      force.set(velEE.copy().normalize().rotate(PI));
+      force.x = 0;
+      force.setMag(2);
     }
-    return new PVector(0, 0);
-  }
+    return force;
     
+}
 }
