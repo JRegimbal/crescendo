@@ -125,7 +125,6 @@ public class Score {
       force.set(force.add(staffForce(posEE, velEE, line)));
     }
     for (OrderedMusicElement element : elements.subList(startIdx, endIdx)) {
-      // TODO fix ghost notes bug
       if (element instanceof Tangible) {
         force.set(force.add(((Tangible)element).force(posEE, velEE)));
       }
