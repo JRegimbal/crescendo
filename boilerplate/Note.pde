@@ -134,42 +134,42 @@ class Note extends DurationElement implements Tangible, Audible {
     } else if (this.state == NoteState.NOT_PLAYING) {
       this.state = NoteState.START_PLAYING;
     }
-    
+      
     if (velEE.mag() > 0.00) {
       switch (getText()) {
       case "\ue1d2":
         if (posDiff.mag() > 0.0025) {
-          fx = velEE.x/abs(velEE.x + 0.001) * 2 * randomGaussian();
-          fy = velEE.y/abs(velEE.y + 0.001) * 2 * randomGaussian();
+          fx = -velEE.x/abs(velEE.x + 0.001) * 2 * abs(randomGaussian());
+          fy = -velEE.y/abs(velEE.y + 0.001) * 2 * abs(randomGaussian());
         }
         break;
       case "\ue1d3":
         if (posDiff.mag() > 0.0015) {
-          fx = velEE.x/abs(velEE.x + 0.001) * 1.5 * randomGaussian();
-          fy = velEE.y/abs(velEE.y + 0.001) * 1.5 * randomGaussian();
+          fx = -velEE.x/abs(velEE.x + 0.001) * 1.5 * abs(randomGaussian());
+          fy = -velEE.y/abs(velEE.y + 0.001) * 1.5 * abs(randomGaussian());
         }
         break;
       case "\ue1d4":
         if (posDiff.mag() > 0.0015) {
-          fx = velEE.x/abs(velEE.x + 0.001) * 1 * randomGaussian();
-          fy = velEE.y/abs(velEE.y + 0.001) * 1 * randomGaussian();
+          fx = -velEE.x/abs(velEE.x + 0.001) * 1.5 * abs(randomGaussian());
+          fy = -velEE.y/abs(velEE.y + 0.001) * 1.5 * abs(randomGaussian());
         }
         break;
       case "\ue1d5":
-        fx = velEE.x/abs(velEE.x + 0.001) * 0.75 * randomGaussian();
-        fy = velEE.y/abs(velEE.y + 0.001) * 0.75 * randomGaussian();
+        fx = -velEE.x/abs(velEE.x + 0.001) * abs(randomGaussian());
+        fy = -velEE.y/abs(velEE.y + 0.001) * abs(randomGaussian());
         break;
       case "\ue1d6":
-        fx = velEE.x/abs(velEE.x + 0.001) * 0.75 * randomGaussian();
-        fy = velEE.y/abs(velEE.y + 0.001) * 0.75 * randomGaussian();
+        fx = -velEE.x/abs(velEE.x + 0.001) * abs(randomGaussian());
+        fy = -velEE.y/abs(velEE.y + 0.001) * abs(randomGaussian());
         break;
       case "\ue1d7":
-        fx = 0.5 * randomGaussian();
-        fy = 0.5 * randomGaussian();
+        fx = 0.75 * randomGaussian();
+        fy = 0.75 * randomGaussian();
         break; 
       case "\ue1d8":
-        fx = 0.5 * randomGaussian();
-        fy = 0.5 * randomGaussian();
+        fx = 0.75 * randomGaussian();
+        fy = 0.75 * randomGaussian();
         break;
       }
     }
