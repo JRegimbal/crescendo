@@ -145,29 +145,57 @@ public class Score {
     PVector force= new PVector(0, 0);
      //each case of these types of forces will get a different amount of force
     if (abs(posEE.y - linePos.y) < 0.0005) {
-      if(linePos.y == 0.07125){
-        System.out.println("hello");
-        return new PVector(1,2);
-      }
-      if(linePos.y == 0.07625){
-        System.out.println("how");
-        return new PVector(1,1.75);
-      }
-      if(linePos.y == 0.08125){
-        System.out.println("are");
-        return new PVector(1,1.5);
-      }
-      if(linePos.y == 0.08625){
-        System.out.println("you");
-        return new PVector(1,1.25);
-      }
-      if(linePos.y == 0.09125){
-        System.out.println("today");
-        return new PVector(1,1);
+      if(goUp){
+        if(linePos.y == 0.07125){
+          //System.out.println("hello");
+          return new PVector(1,2);
+        }
+        if(linePos.y == 0.07625){
+          //System.out.println("how");
+          return new PVector(1,1.75);
+        }
+        if(linePos.y == 0.08125){
+          //System.out.println("are");
+          return new PVector(1,1.5);
+        }
+        if(linePos.y == 0.08625){
+          //System.out.println("you");
+          return new PVector(1,1.25);
+        }
+        if(linePos.y == 0.09125){
+          //System.out.println("today");
+          return new PVector(1,1);
+        }
+        else{
+            //System.out.println("didn't work");
+        }
       }
       else{
-          System.out.println("didn't work");
+        if(linePos.y == 0.07125){
+          //System.out.println("hello");
+          return new PVector(1,1);
+        }
+        if(linePos.y == 0.07625){
+          //System.out.println("how");
+          return new PVector(1,1.25);
+        }
+        if(linePos.y == 0.08125){
+          //System.out.println("are");
+          return new PVector(1,1.5);
+        }
+        if(linePos.y == 0.08625){
+          //System.out.println("you");
+          return new PVector(1,1.75);
+        }
+        if(linePos.y == 0.09125){
+          //System.out.println("today");
+          return new PVector(1,2);
+        }
+        else{
+            //System.out.println("didn't work");
+        }
       }
+
       //return new PVector(1, 1);
     }
     return force;
