@@ -123,49 +123,60 @@ class Note extends DurationElement implements Tangible, Audible {
   }
 
 
-  // TODO Update Implementation
-  PVector force(PVector posEE, PVector velEE) {
+  PVector force(PVector posEE, PVector velEE) {   
     PVector posDiff = (posEE.copy().sub(getPhysicsPosition()));
     final float threshold = 0.005;
+    float fx = 0;
+    float fy = 0;
+    
     if (posDiff.mag() > threshold) {
       return new PVector(0, 0);
     } else if (this.state == NoteState.NOT_PLAYING) {
       this.state = NoteState.START_PLAYING;
     }
-    float fx = 0;
-    float fy = 0;
-    switch (getText()) {
-    case "\ue1d2":
-      fx = 1.15*cos(atan(posDiff.x/posDiff.y));
-      fy = 1.15*sin(atan(posDiff.x/posDiff.y));
-      break;
-    case "\ue1d3":
-      fx = 1.15*cos(atan(posDiff.x/posDiff.y));
-      fy = 1.15*sin(atan(posDiff.x/posDiff.y));
-      break;
-    case "\ue1d4":
-      fx = 1.15*cos(atan(posDiff.x/posDiff.y));
-      fy = 1.15*sin(atan(posDiff.x/posDiff.y));
-      break;
-    case "\ue1d5":
-      fx = random(-1, 1);
-      fy = random(-1, 1);
-      break;
-    case "\ue1d6":
-      fx = random(-1, 1);
-      fy = random(-1, 1);
-      break;
-    case "\ue1d7":
-      fx = random(-1, 1);
-      fy = random(-1, 1);
-      break;
-    case "\ue1d8":
-      fx = random(-1, 1);
-      fy = random(-1, 1);
-      break;
+    
+    if (velEE.mag() > 0.00) {
+      switch (getText()) {
+      case "\ue1d2":
+        if (posDiff.mag() > 0.0025) {
+          fx = velEE.x/abs(velEE.x + 0.001) * 2 * randomGaussian();
+          fy = velEE.y/abs(velEE.y + 0.001) * 2 * randomGaussian();
+        }
+        break;
+      case "\ue1d3":
+        if (posDiff.mag() > 0.0015) {
+          fx = velEE.x/abs(velEE.x + 0.001) * 1.5 * randomGaussian();
+          fy = velEE.y/abs(velEE.y + 0.001) * 1.5 * randomGaussian();
+        }
+        break;
+      case "\ue1d4":
+        if (posDiff.mag() > 0.0015) {
+          fx = velEE.x/abs(velEE.x + 0.001) * 1 * randomGaussian();
+          fy = velEE.y/abs(velEE.y + 0.001) * 1 * randomGaussian();
+        }
+        break;
+      case "\ue1d5":
+        fx = velEE.x/abs(velEE.x + 0.001) * 0.75 * randomGaussian();
+        fy = velEE.y/abs(velEE.y + 0.001) * 0.75 * randomGaussian();
+        break;
+      case "\ue1d6":
+        fx = velEE.x/abs(velEE.x + 0.001) * 0.75 * randomGaussian();
+        fy = velEE.y/abs(velEE.y + 0.001) * 0.75 * randomGaussian();
+        break;
+      case "\ue1d7":
+        fx = 0.5 * randomGaussian();
+        fy = 0.5 * randomGaussian();
+        break; 
+      case "\ue1d8":
+        fx = 0.5 * randomGaussian();
+        fy = 0.5 * randomGaussian();
+        break;
+      }
     }
-    fx = constrain(fx, -1.5, 1.5);
-    fy = constrain(fy, -1.5, 1.5);
+
+    fx = constrain(fx, -1.25, 1.25);
+    fy = constrain(fy, -1.25, 1.25);
+
     return new PVector(fx, fy);
   }
 

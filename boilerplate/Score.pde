@@ -125,6 +125,7 @@ public class Score {
       force.set(force.add(staffForce(posEE, velEE, line)));
     }
     for (OrderedMusicElement element : elements) {
+      // TODO fix ghost notes bug
       if (element instanceof Tangible) {
         force.set(force.add(((Tangible)element).force(posEE, velEE)));
       }
@@ -142,8 +143,10 @@ public class Score {
   
   private PVector staffForce(PVector posEE, PVector velEE, PShape line) {
     PVector linePos = getPhysicsPosition(line);
-    if (abs(posEE.y - linePos.y) < 0.0005) {
-      return new PVector(1, 1);
+    if (abs(posEE.y - linePos.y) < 0.0005 && velEE.mag() > 0.00) {
+      float fx = 0.9 * velEE.x/abs(velEE.x + 0.001);
+      float fy = 0.9 * velEE.y/abs(velEE.y + 0.001);
+      return new PVector(fx, fy);
     }
     return new PVector(0, 0);
   }
