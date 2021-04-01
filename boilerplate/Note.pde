@@ -137,8 +137,11 @@ class Note extends DurationElement implements Tangible, Audible {
     PVector force = new PVector(0, 0);
     if (posDiff.mag() <= threshold) {
       if (NOTES) {
-        force.x = -1.1;
-        force.y = -1.1;
+        // Grab next note if it exists
+        if (this.parent.elements.indexOf(this) < this.parent.elements.size() - 1) {
+          PVector nextPos = this.parent.elements.get(this.parent.elements.indexOf(this) + 1).getPhysicsPosition();
+          force.set(getPhysicsPosition().sub(nextPos).setMag(1.56));
+        }
       }
     }
     return force;

@@ -7,9 +7,9 @@ import oscP5.*;
 import netP5.*;
 
 /** Settings */
-final boolean NOTES = false;
+final boolean NOTES = true;
 final boolean STAFF_LINES = true;
-final boolean STAFF_GLOBAL = true;
+final boolean STAFF_GLOBAL = false;
 final boolean DAMPING = true;
 /** End settings */
 
