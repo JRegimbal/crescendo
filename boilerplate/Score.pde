@@ -6,11 +6,11 @@ import java.util.ArrayList;
  */
 public class Score {
   PFont smuflFont;
-  final static int lineSpacing = 25;  // px
+  final static int lineSpacing = 30;  // px
   final int strokeWidth = 2;   // px
   final int totalHeight = lineSpacing * 4;
   final int marginVertical = (height - totalHeight) / 2;
-  final int marginHorizontal = 200;
+  final int marginHorizontal = 150;
   final int elemMargin = 2 * lineSpacing;
   final int elemSpacing = totalHeight;
   public int tempo;
