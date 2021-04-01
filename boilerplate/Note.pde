@@ -7,8 +7,8 @@ class Note extends DurationElement implements Tangible, Audible {
   float startTime;
 
   /** Get the previous clef: this.getPrevious(Clef.class);
-    * Get the previous time signature: this.getPrevious(TimeSignature.class);
-    */
+   * Get the previous time signature: this.getPrevious(TimeSignature.class);
+   */
 
   NoteState state;
 
@@ -41,30 +41,27 @@ class Note extends DurationElement implements Tangible, Audible {
   String getText() {
     String text = "";
     switch (this.duration) {
-      case WHOLE:
+    case WHOLE:
       text += "\ue1d2";
       break;
-      case HALF:
+    case HALF:
       if (location < 5) {  // point for switching to up/down stem
         text += "\ue1d3";
-      }
-      else {
+      } else {
         text += "\ue1d4";
       }
       break;
-      case QUARTER:
+    case QUARTER:
       if (location < 5) {
         text += "\ue1d5";
-      }
-      else {
+      } else {
         text += "\ue1d6";
       }
       break;
-      case EIGHTH:
+    case EIGHTH:
       if (location < 5) {
         text += "\ue1d7";
-      }
-      else {
+      } else {
         text += "\ue1d8";
       }
       break;
@@ -84,7 +81,7 @@ class Note extends DurationElement implements Tangible, Audible {
     String text = getText();
     PVector pos = getPosition();
     text(text, pos.x, pos.y);
-    
+
     // Draw ledger lines when applicable
     if (location < -1) {
       // At least one line below bottom
@@ -114,57 +111,99 @@ class Note extends DurationElement implements Tangible, Audible {
       case NOT_PLAYING:
       if ((posEE.copy().sub(getPhysicsPosition())).mag() < threshold) {
         this.state = NoteState.START_PLAYING;
-      } 
+      }
       break;
-      case START_PLAYING:
+    case START_PLAYING:
       play();
       break;
-      case PLAYING:
+    case PLAYING:
       if (millis() - startTime > durationMs()) {
         this.state = NoteState.NOT_PLAYING;
       }
       break;
-      default:
+    default:
       break;
     }
   }
 
 
-  // TODO Update Implementation
-  PVector force(PVector posEE, PVector velEE) {
+  PVector force(PVector posEE, PVector velEE) {   
     PVector posDiff = (posEE.copy().sub(getPhysicsPosition()));
     final float threshold = 0.005;
     PVector force = new PVector(0, 0);
     if (posDiff.mag() <= threshold) {
-      if (NOTES) {
+      if (NOTE_FORCE) {
         // Grab next note if it exists
         if (this.parent.elements.indexOf(this) < this.parent.elements.size() - 1) {
           PVector nextPos = this.parent.elements.get(this.parent.elements.indexOf(this) + 1).getPhysicsPosition();
-          force.set(getPhysicsPosition().sub(nextPos).setMag(1.56));
+          force.add(getPhysicsPosition().sub(nextPos).setMag(1.56));
         }
+      }
+      if (NOTE_TEXTURE) {
+        float fx = 0, fy = 0;
+        if (velEE.mag() > 0.00) {
+          switch (getText()) {
+          case "\ue1d2":
+            if (posDiff.mag() > 0.0025) {
+              fx = -velEE.x/abs(velEE.x + 0.001) * 2 * abs(randomGaussian());
+              fy = -velEE.y/abs(velEE.y + 0.001) * 2 * abs(randomGaussian());
+            }
+            break;
+          case "\ue1d3":
+            if (posDiff.mag() > 0.0015) {
+              fx = -velEE.x/abs(velEE.x + 0.001) * 1.5 * abs(randomGaussian());
+              fy = -velEE.y/abs(velEE.y + 0.001) * 1.5 * abs(randomGaussian());
+            }
+            break;
+          case "\ue1d4":
+            if (posDiff.mag() > 0.0015) {
+              fx = -velEE.x/abs(velEE.x + 0.001) * 1.5 * abs(randomGaussian());
+              fy = -velEE.y/abs(velEE.y + 0.001) * 1.5 * abs(randomGaussian());
+            }
+            break;
+          case "\ue1d5":
+            fx = -velEE.x/abs(velEE.x + 0.001) * abs(randomGaussian());
+            fy = -velEE.y/abs(velEE.y + 0.001) * abs(randomGaussian());
+            break;
+          case "\ue1d6":
+            fx = -velEE.x/abs(velEE.x + 0.001) * abs(randomGaussian());
+            fy = -velEE.y/abs(velEE.y + 0.001) * abs(randomGaussian());
+            break;
+          case "\ue1d7":
+            fx = 0.75 * randomGaussian();
+            fy = 0.75 * randomGaussian();
+            break; 
+          case "\ue1d8":
+            fx = 0.75 * randomGaussian();
+            fy = 0.75 * randomGaussian();
+            break;
+          }
+        }
+    
+        fx = constrain(fx, -1.25, 1.25);
+        fy = constrain(fy, -1.25, 1.25);
+        force.add(new PVector(fx, fy));
       }
     }
     return force;
   }
 
-  float getFrequency(){
+  float getFrequency() {
     //the notes can be found by taking the starting note and doing the following calculation: Freq = note x 2^N/12
     //the clef will determine the starting note
     Clef c = (Clef) this.getPrevious(Clef.class);
     ClefShape sh = c.shape;
-    if(sh== null){
+    if (sh== null) {
       sh = ClefShape.G;
     }
     float refnote = 0.0;
     if (sh == ClefShape.G) {  //treble clef
       //the first note is the one on the first staff line- so for this clef it is E4
       refnote = 329.628;
-    }
-    else if (sh == ClefShape.C) { //baritone clef??
+    } else if (sh == ClefShape.C) { //baritone clef??
       //the reference note is F3
       refnote = 174.61;
-    }
-    else {      // ClefShape.F aka bass clef
+    } else {      // ClefShape.F aka bass clef
       //the reference note is G2
       refnote = 98.00;
     }
@@ -187,7 +226,7 @@ class Note extends DurationElement implements Tangible, Audible {
 }
 
 enum NoteState {
-    NOT_PLAYING,
-    START_PLAYING,
+  NOT_PLAYING, 
+    START_PLAYING, 
     PLAYING,
-  };
+};

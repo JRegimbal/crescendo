@@ -18,7 +18,7 @@ public class Score {
 
   public ArrayList<OrderedMusicElement> elements = new ArrayList();
   PShape[] lines = new PShape[5];
-  
+
   public Score(int bpm) {
     this.elements.clear();
     this.smuflFont = createFont("Bravura.otf", totalHeight);
@@ -29,11 +29,11 @@ public class Score {
     }
     this.tempo = bpm;
   }
-  
+
   PVector getBasePosition(int i) {
     return getBasePosition(i, startIdx);
   }
-  
+
   PVector getBasePosition(int i, int base) {
     float x;
     if (i <= base) {
@@ -42,7 +42,7 @@ public class Score {
     else {
       x = getBasePosition(i - 1).x + this.elements.get(i - 1).getWidth() + this.elements.get(i-1).getPadding();
     }
-    
+ 
     float y = marginVertical + totalHeight;
     return new PVector(x, y);
   }
@@ -54,7 +54,7 @@ public class Score {
     for (PShape line : lines) {
       shape(line);
     }
-    
+
     for (OrderedMusicElement element : elements) {
       element.draw();
     }
@@ -171,5 +171,4 @@ public class Score {
     }
     return force;
   }
-      
 }

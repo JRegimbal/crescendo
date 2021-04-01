@@ -7,8 +7,9 @@ import oscP5.*;
 import netP5.*;
 
 /** Settings */
-final boolean NOTES = true;
-final boolean STAFF_LINES = true;
+final boolean NOTE_TEXTURE = true;
+final boolean NOTE_FORCE = false;
+final boolean STAFF_LINES = false;
 final boolean STAFF_GLOBAL = false;
 final boolean DAMPING = true;
 /** End settings */
