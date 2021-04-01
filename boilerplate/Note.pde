@@ -5,6 +5,7 @@ class Note extends DurationElement implements Tangible, Audible {
   int location;  // number of lines and spacing where space below the first line is 0
   float textWidth;
   float startTime;
+  boolean ready;
 
   /** Get the previous clef: this.getPrevious(Clef.class);
    * Get the previous time signature: this.getPrevious(TimeSignature.class);
@@ -19,6 +20,7 @@ class Note extends DurationElement implements Tangible, Audible {
     this.location = location;
     this.textWidth = textWidth(getText());
     this.state = NoteState.NOT_PLAYING;
+    ready = true;
   }
   public Note(Score s) {
     this(s, BaseDuration.QUARTER, false, 0);
@@ -110,11 +112,16 @@ class Note extends DurationElement implements Tangible, Audible {
     switch (this.state) {
       case NOT_PLAYING:
       if ((posEE.copy().sub(getPhysicsPosition())).mag() < threshold) {
-        this.state = NoteState.START_PLAYING;
+        if (ready) {
+          this.state = NoteState.START_PLAYING;
+        }
+      } else {
+        ready = true;
       }
       break;
     case START_PLAYING:
       play();
+      ready = false;
       break;
     case PLAYING:
       if (millis() - startTime > durationMs()) {
