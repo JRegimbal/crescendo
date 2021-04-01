@@ -155,7 +155,7 @@ public class Score {
     PVector linePos = getPhysicsPosition(line);
     PVector force = new PVector(0, 0);
     final float epsilon = 1000;
-    final float fmax = 2;
+    final float fmax = 1.75;
     float gaussian = (float) Math.exp(-Math.pow(epsilon * (posEE.y - linePos.y), 2));
     force.y = fmax * gaussian * Math.signum(posEE.y - linePos.y);
     return force;
