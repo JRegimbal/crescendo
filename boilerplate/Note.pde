@@ -188,35 +188,71 @@ class Note extends DurationElement implements Tangible, Audible {
     return force;
   }
 
-  float getFrequency() {
+  int getFrequency() {
     //the notes can be found by taking the starting note and doing the following calculation: Freq = note x 2^N/12
     //the clef will determine the starting note
     Clef c = (Clef) this.getPrevious(Clef.class);
     ClefShape sh = c.shape;
-    if (sh== null) {
+    if (sh == null) {
       sh = ClefShape.G;
     }
-    float refnote = 0.0;
-    if (sh == ClefShape.G) {  //treble clef
-      //the first note is the one on the first staff line- so for this clef it is E4
-      refnote = 329.628;
-    } else if (sh == ClefShape.C) { //baritone clef??
-      //the reference note is F3
-      refnote = 174.61;
-    } else {      // ClefShape.F aka bass clef
-      //the reference note is G2
-      refnote = 98.00;
+    int pitchClass = 0; // 0 = C
+    int octave = 0;
+    if (sh == ClefShape.G) {
+      pitchClass = 4;
+      octave = 4;
+    } else if (sh == ClefShape.C) {
+      pitchClass = 0;
+      octave = 4;
+    } else {  // F clef
+      pitchClass = 3;
+      octave = 3;
     }
-    float loc = float(this.location);
-    return refnote * (float) Math.pow(2, (loc/12.0));
+    // Change pitch class to one of note
+    pitchClass -= ((c.line - 1) * 2 - this.location);
+    while (pitchClass > 6) {
+      octave++;
+      pitchClass -= 7;
+    }
+    while (pitchClass < 0) {
+      octave--;
+      pitchClass += 7;
+    }
+    int midiNum = 12 * (octave + 1); // C for that octave with A440
+    switch (pitchClass) {
+      case 0: // c
+      break;
+      case 1: // d
+      midiNum += 2;
+      break;
+      case 2: // e
+      midiNum += 4;
+      break;
+      case 3: // f
+      midiNum += 5;
+      break;
+      case 4: // g
+      midiNum += 7;
+      break;
+      case 5: // a
+      midiNum += 9;
+      break;
+      case 6: // b
+      midiNum += 11;
+      break;
+      default:
+      break;
+    }
+    // TODO take into account key sig
+    return midiNum;
   }
 
   void play() {
-    float frequency = getFrequency();
+    int frequency = getFrequency();
     double dur = this.durationMs();
-    // Osc type message. Related to crescendo project and it plays a note.
+    // Osc type message. Related to crescendo project and it plays a midi note.
     // Trying to follow good practices in case we expand
-    OscMessage note = new OscMessage("/crescendo/play");
+    OscMessage note = new OscMessage("/crescendo/midi");
     note.add(frequency);
     note.add((float)dur);  // Must cast to float as Pd does not support double precision
     oscP5.send(note, oscDestination);
