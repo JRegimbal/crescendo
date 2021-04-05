@@ -25,7 +25,7 @@ long baseFrameRate = 120;
 ScheduledFuture<?> handle;
 
 PVector angles = new PVector(0, 0);
-PVector torques = new PVector(0 ,0);
+PVector torques = new PVector(0, 0);
 PVector posEE = new PVector(0, 0);
 PVector posEELast = new PVector(0, 0);
 PVector velEE = new PVector(0, 0);
@@ -56,102 +56,112 @@ void setup() {
 
   /** Score */
   s = new Score(105);
-  new Clef(s, ClefShape.G, KeySignature.GMaj);
-  new TimeSignature(s, 2, 4);
+  new Clef(s, ClefShape.G, KeySignature.CMaj);
+  new TimeSignature(s, 4, 4);
+  new Rest(s, BaseDuration.HALF);
+  new Note(s, BaseDuration.EIGHTH, 0);
   new Note(s, BaseDuration.EIGHTH, 2);
-  new Note(s, BaseDuration.EIGHTH, 3);
+  new Note(s, BaseDuration.EIGHTH, 4);
+  new Note(s, BaseDuration.EIGHTH, 5);
   new BarLine(s);
-  new Note(s, BaseDuration.QUARTER, 4);
-  new Note(s, BaseDuration.QUARTER, 6);
+  new Note(s, BaseDuration.HALF, 1);
+  new Rest(s, BaseDuration.HALF);
   new BarLine(s);
-  new Note(s, BaseDuration.QUARTER, 6);
-  new Note(s, BaseDuration.QUARTER, 4);
-  new BarLine(s);
-  new Note(s, BaseDuration.QUARTER, 5);
-  new Note(s, BaseDuration.QUARTER, 5);
-  new BarLine(s);
-  new Note(s, BaseDuration.QUARTER, 5);
+  new Rest(s, BaseDuration.HALF);
+  new Note(s, BaseDuration.EIGHTH, 0);
   new Note(s, BaseDuration.EIGHTH, 2);
-  new Note(s, BaseDuration.EIGHTH, 3);
+  new Note(s, BaseDuration.EIGHTH, 4);
+  new Note(s, BaseDuration.EIGHTH, 5);
   new BarLine(s);
-  new Note(s, BaseDuration.QUARTER, 4);
-  new Note(s, BaseDuration.QUARTER, 6);
+  new Note(s, BaseDuration.HALF, 6);
+  new Rest(s, BaseDuration.HALF);
   new BarLine(s);
-  new Note(s, BaseDuration.QUARTER, 6);
-  new Note(s, BaseDuration.QUARTER, 5);
+  new Rest(s, BaseDuration.HALF);
+  new Note(s, BaseDuration.EIGHTH, 5);
+  new Note(s, BaseDuration.EIGHTH, 6);
+  new Note(s, BaseDuration.EIGHTH, 7);
+  new Note(s, BaseDuration.EIGHTH, 8);
   new BarLine(s);
-  new Note(s, BaseDuration.HALF, 4);
+  new Note(s, BaseDuration.HALF, 9);
+  new Note(s, BaseDuration.EIGHTH, 9);
+  new Note(s, BaseDuration.EIGHTH, 8);
+  new Note(s, BaseDuration.EIGHTH, 7);
+  new Note(s, BaseDuration.EIGHTH, 6);
   new BarLine(s);
-  new Rest(s, BaseDuration.EIGHTH);
-  new Note(s, BaseDuration.EIGHTH, 2);
-  new Note(s, BaseDuration.EIGHTH, 2);
-  new Note(s, BaseDuration.EIGHTH, 3);
-  new BarLine(s);
-  new Note(s, BaseDuration.QUARTER, 4);
-  new Note(s, BaseDuration.QUARTER, 6);
-  new BarLine(s);
-  new Rest(s, BaseDuration.EIGHTH);
+  new Note(s, BaseDuration.HALF, 5);
+  new Note(s, BaseDuration.EIGHTH, 8);
+  new Note(s, BaseDuration.EIGHTH, 7);
   new Note(s, BaseDuration.EIGHTH, 6);
   new Note(s, BaseDuration.EIGHTH, 5);
-  new Note(s, BaseDuration.EIGHTH, 4);
-  new BarLine(s);
-  new Note(s, BaseDuration.QUARTER, 2);
-  new Note(s, BaseDuration.QUARTER, 5);
-  new BarLine(s);
-  new Rest(s, BaseDuration.EIGHTH);
-  new Note(s, BaseDuration.EIGHTH, 5);
-  new Note(s, BaseDuration.EIGHTH, 4);
-  new Note(s, BaseDuration.EIGHTH, 3);
-  new BarLine(s);
-  new Note(s, BaseDuration.QUARTER, 3);
-  new Note(s, BaseDuration.QUARTER, 4);
-  new BarLine(s);
-  new Rest(s, BaseDuration.EIGHTH);
-  new Note(s, BaseDuration.EIGHTH, 3);
-  new Note(s, BaseDuration.EIGHTH, 3);
-  new Note(s, BaseDuration.EIGHTH, 2);
   new BarLine(s);
   new Note(s, BaseDuration.HALF, 2);
+  new Rest(s, BaseDuration.HALF);
   new BarLine(s);
-  new Rest(s, BaseDuration.EIGHTH);
+  new Rest(s, BaseDuration.HALF);
+  new Note(s, BaseDuration.EIGHTH, 0);
   new Note(s, BaseDuration.EIGHTH, 2);
+  new Note(s, BaseDuration.EIGHTH, 4);
+  new Note(s, BaseDuration.EIGHTH, 5);
+  new BarLine(s);
+  new Note(s, BaseDuration.HALF, 1);
+  new Rest(s, BaseDuration.HALF);
+  new BarLine(s);
+  new Rest(s, BaseDuration.HALF);
+  new Note(s, BaseDuration.EIGHTH, 0);
   new Note(s, BaseDuration.EIGHTH, 2);
-  new Note(s, BaseDuration.EIGHTH, 3);
+  new Note(s, BaseDuration.EIGHTH, 4);
+  new Note(s, BaseDuration.EIGHTH, 5);
   new BarLine(s);
-  new Note(s, BaseDuration.QUARTER, 4);
-  new Note(s, BaseDuration.QUARTER, 6);
-  new BarLine(s);
-  new Rest(s, BaseDuration.EIGHTH);
+  new Note(s, BaseDuration.HALF, 6);
+  new Note(s, BaseDuration.EIGHTH, 7);
   new Note(s, BaseDuration.EIGHTH, 6);
+  new Note(s, BaseDuration.EIGHTH, 7);
+  new Note(s, BaseDuration.EIGHTH, 9);
+  new BarLine(s);
+  new Note(s, BaseDuration.HALF, 5);
   new Note(s, BaseDuration.EIGHTH, 5);
   new Note(s, BaseDuration.EIGHTH, 4);
+  new Note(s, BaseDuration.EIGHTH, 5);
+  new Note(s, BaseDuration.EIGHTH, 7);
   new BarLine(s);
-  new Note(s, BaseDuration.QUARTER, 2);
-  new Note(s, BaseDuration.QUARTER, 5);
-  new Rest(s, BaseDuration.EIGHTH);
+  new Note(s, BaseDuration.HALF, 1);
+  new Note(s, BaseDuration.EIGHTH, 7);
+  new Note(s, BaseDuration.EIGHTH, 8);
+  new Note(s, BaseDuration.EIGHTH, 6);
+  new Note(s, BaseDuration.EIGHTH, 7);
+  new BarLine(s);
+  new Note(s, BaseDuration.HALF, 5);
+  new Rest(s, BaseDuration.HALF);
+  new BarLine(s);
+  new Rest(s, BaseDuration.HALF);
+  new Note(s, BaseDuration.EIGHTH, 7);
+  new Note(s, BaseDuration.EIGHTH, 6);
+  new Note(s, BaseDuration.EIGHTH, 7);
+  new Note(s, BaseDuration.EIGHTH, 9);
+  new BarLine(s);
+  new Note(s, BaseDuration.HALF, 5);
   new Note(s, BaseDuration.EIGHTH, 5);
   new Note(s, BaseDuration.EIGHTH, 4);
-  new Note(s, BaseDuration.EIGHTH, 3);
+  new Note(s, BaseDuration.EIGHTH, 5);
+  new Note(s, BaseDuration.EIGHTH, 7);
   new BarLine(s);
-  new Note(s, BaseDuration.QUARTER, 3);
-  new Note(s, BaseDuration.QUARTER, 4);
+  new Note(s, BaseDuration.HALF, 1);
+  new Note(s, BaseDuration.EIGHTH, 7);
+  new Note(s, BaseDuration.EIGHTH, 8);
+  new Note(s, BaseDuration.EIGHTH, 6);
+  new Note(s, BaseDuration.EIGHTH, 7);
   new BarLine(s);
-  new Rest(s, BaseDuration.EIGHTH);
-  new Note(s, BaseDuration.EIGHTH, 3);
-  new Note(s, BaseDuration.EIGHTH, 3);
-  new Note(s, BaseDuration.EIGHTH, 2);
-  new BarLine(s);
-  new Note(s, BaseDuration.HALF, 2);
+  new Note(s, BaseDuration.WHOLE, 5);
   new BarLine(s);
 
   cp5 = new ControlP5(this);
   cp5.addSlider("Measure")
-     .setPosition(40, height / 2 - 120)
-     .setSize(20, 250)
-     .setRange(s.totalBars(), 1)
-     .setValue(1)
-     .setNumberOfTickMarks(s.totalBars())
-     .setColorValueLabel(255);
+    .setPosition(40, height / 2 - 120)
+    .setSize(20, 250)
+    .setRange(s.totalBars(), 1)
+    .setValue(1)
+    .setNumberOfTickMarks(s.totalBars())
+    .setColorValueLabel(255);
 
   panto_setup();
 
@@ -166,7 +176,7 @@ void draw() {
     // The order here is important!
     s.draw(
       (int)cp5.get("Measure").getValue() - 1
-    );
+      );
     update_animation(angles.x * radsPerDegree, angles.y * radsPerDegree, posEE.x, posEE.y);
   }
 }
@@ -176,13 +186,11 @@ void keyPressed() {
     if (cp5.get("Measure").getValue() < cp5.get(Slider.class, "Measure").getMin()) {
       cp5.get("Measure").setValue(cp5.get("Measure").getValue() + 1);
     }
-  }
-  else if (keyCode == UP) {
+  } else if (keyCode == UP) {
     if (cp5.get("Measure").getValue() > 1) {
       cp5.get("Measure").setValue(cp5.get("Measure").getValue() - 1);
     }
-  }
-  else if (keyCode == SHIFT) {
+  } else if (keyCode == SHIFT) {
     engaged = false;
   }
 }
@@ -218,8 +226,7 @@ class SimulationThread implements Runnable {
 
     if (engaged) {
       torques.set(widget.set_device_torques(fEE.array()));
-    }
-    else {
+    } else {
       torques.set(widget.set_device_torques(new float[]{0, 0}));
     }
     widget.device_write_torques();
