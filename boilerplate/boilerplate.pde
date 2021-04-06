@@ -6,6 +6,14 @@ import controlP5.*;
 import oscP5.*;
 import netP5.*;
 
+/** Settings */
+final boolean NOTE_TEXTURE = true;
+final boolean NOTE_FORCE = true;
+final boolean STAFF_LINES = true;
+final boolean STAFF_GLOBAL = false;
+final boolean DAMPING = true;
+/** End settings */
+
 private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 final int destination = 8080;
 final int sourcePort = 8081;
