@@ -143,7 +143,7 @@ class Note extends DurationElement implements Tangible, Audible {
         // Grab next note if it exists
         if (this.parent.elements.indexOf(this) < this.parent.elements.size() - 1) {
           PVector nextPos = this.parent.elements.get(this.parent.elements.indexOf(this) + 1).getPhysicsPosition();
-          force.add(getPhysicsPosition().sub(nextPos).setMag(1.56));
+          force.add(getPhysicsPosition().sub(nextPos).setMag(1));
         }
       }
       if (NOTE_TEXTURE) {

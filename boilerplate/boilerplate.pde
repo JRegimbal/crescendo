@@ -8,8 +8,8 @@ import netP5.*;
 
 /** Settings */
 final boolean NOTE_TEXTURE = true;
-final boolean NOTE_FORCE = false;
-final boolean STAFF_LINES = false;
+final boolean NOTE_FORCE = true;
+final boolean STAFF_LINES = true;
 final boolean STAFF_GLOBAL = false;
 final boolean DAMPING = true;
 /** End settings */
