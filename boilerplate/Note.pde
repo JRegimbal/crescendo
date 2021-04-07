@@ -139,20 +139,20 @@ class Note extends DurationElement implements Tangible, Audible {
       switch (getText()) {
       case "\ue1d2":
         if (posDiff.mag() > 0.0025) {
-          fx = -velEE.x/abs(velEE.x + 0.001) * 2 * abs(randomGaussian());
-          fy = -velEE.y/abs(velEE.y + 0.001) * 2 * abs(randomGaussian());
+          fx = -velEE.x/abs(velEE.x + 0.001) * abs(randomGaussian());
+          fy = -velEE.y/abs(velEE.y + 0.001) * abs(randomGaussian());
         }
         break;
       case "\ue1d3":
         if (posDiff.mag() > 0.0015) {
-          fx = -velEE.x/abs(velEE.x + 0.001) * 1.5 * abs(randomGaussian());
-          fy = -velEE.y/abs(velEE.y + 0.001) * 1.5 * abs(randomGaussian());
+          fx = -velEE.x/abs(velEE.x + 0.001) * abs(randomGaussian());
+          fy = -velEE.y/abs(velEE.y + 0.001) * abs(randomGaussian());
         }
         break;
       case "\ue1d4":
         if (posDiff.mag() > 0.0015) {
-          fx = -velEE.x/abs(velEE.x + 0.001) * 1.5 * abs(randomGaussian());
-          fy = -velEE.y/abs(velEE.y + 0.001) * 1.5 * abs(randomGaussian());
+          fx = -velEE.x/abs(velEE.x + 0.001) * abs(randomGaussian());
+          fy = -velEE.y/abs(velEE.y + 0.001) * abs(randomGaussian());
         }
         break;
       case "\ue1d5":
@@ -164,18 +164,18 @@ class Note extends DurationElement implements Tangible, Audible {
         fy = -velEE.y/abs(velEE.y + 0.001) * abs(randomGaussian());
         break;
       case "\ue1d7":
-        fx = 0.75 * randomGaussian();
-        fy = 0.75 * randomGaussian();
+        fx = -velEE.x/abs(velEE.x + 0.001) * abs(randomGaussian());
+        fy = -velEE.y/abs(velEE.y + 0.001) * abs(randomGaussian());
         break; 
       case "\ue1d8":
-        fx = 0.75 * randomGaussian();
-        fy = 0.75 * randomGaussian();
+        fx = -velEE.x/abs(velEE.x + 0.001) * abs(randomGaussian());
+        fy = -velEE.y/abs(velEE.y + 0.001) * abs(randomGaussian());
         break;
       }
     }
 
-    fx = constrain(fx, -1.25, 1.25);
-    fy = constrain(fy, -1.25, 1.25);
+    fx = constrain(fx, -1.2, 1.2);
+    fy = constrain(fy, -1.2, 1.2);
 
     return new PVector(fx, fy);
   }
