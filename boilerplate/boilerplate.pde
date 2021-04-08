@@ -6,10 +6,10 @@ import controlP5.*;
 import org.puredata.core.*;
 
 /** Settings */
-final boolean NOTE_TEXTURE = true;
-final boolean NOTE_FORCE = true;
-final boolean STAFF_LINES = true;
-final boolean STAFF_GLOBAL = false;
+boolean NOTE_TEXTURE = true;
+boolean NOTE_FORCE = true;
+boolean STAFF_LINES = true;
+boolean STAFF_GLOBAL = false;
 final boolean DAMPING = true;
 /** End settings */
 
@@ -333,6 +333,25 @@ void setup() {
      .setValue(1)
      .setNumberOfTickMarks(s.totalBars())
      .setColorValueLabel(255);
+     
+  cp5.addToggle("STAFF_LINES")
+    .setPosition(40, 500)
+    .setSize(50, 20)
+    .setCaptionLabel("Staff Lines")
+    .setColorCaptionLabel(0)
+    ;
+  cp5.addToggle("NOTE_TEXTURE")
+    .setPosition(100, 500)
+    .setSize(50, 20)
+    .setCaptionLabel("Note Texture")
+    .setColorCaptionLabel(0)
+    ;
+  cp5.addToggle("NOTE_FORCE")
+    .setPosition(160, 500)
+    .setSize(50, 20)
+    .setCaptionLabel("Note Nudge")
+    .setColorCaptionLabel(0)
+    ;
 
   panto_setup();
 
