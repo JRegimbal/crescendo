@@ -3,8 +3,7 @@ import static java.util.concurrent.TimeUnit.*;
 import java.util.concurrent.*;
 import java.lang.System;
 import controlP5.*;
-import oscP5.*;
-import netP5.*;
+import org.puredata.core.*;
 
 /** Settings */
 final boolean NOTE_TEXTURE = true;
@@ -17,8 +16,8 @@ final boolean DAMPING = true;
 private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 final int destination = 8080;
 final int sourcePort = 8081;
-final NetAddress oscDestination = new NetAddress("127.0.0.1", destination);
-OscP5 oscP5;
+//final NetAddress oscDestination = new NetAddress("127.0.0.1", destination);
+//OscP5 oscP5;
 
 /** Haply setup */
 Board haplyBoard;
@@ -48,14 +47,36 @@ PFont font2;
 Score s;
 
 ControlP5 cp5;
+int patch;
+PdReceiver receiver = new PdReceiver() {
+  @Override
+  public void print(String s) {
+    println(s);
+  }
+  public void receiveList(String s, Object... args) {
+  }
+  public void receiveBang(String s) { print(s); }
+  public void receiveFloat(String s, float f) { print(s + f); }
+  public void receiveSymbol(String s, String d) { print(s + d); }
+  public void receiveMessage(String s, String d, Object... args) { print(s + d); }
+};
 
 void setup() {
   size(1000, 650);
   frameRate(baseFrameRate);
-  /** Open Sound Control */
-  oscP5 = new OscP5(this, sourcePort);
+  PdBase.setReceiver(receiver);
+  PdBase.openAudio(0, 2, 44100);
+  try {
+    patch = PdBase.openPatch(dataPath("oscTest.pd"));
+  } catch (IOException e) {
+    println("Unable to open patch!");
+    println(e.getMessage());
+  }
+  PdBase.computeAudio(true);
+  PdBase.startAudio();
+
   /** Haply */
-  haplyBoard = new Board(this, Serial.list()[4], 0);
+  haplyBoard = new Board(this, Serial.list()[0], 0);
   widget = new Device(widgetID, haplyBoard);
   pantograph = new Pantograph();
   widget.set_mechanism(pantograph);
@@ -141,6 +162,7 @@ void draw() {
   fill(0);
   text("Use the up and down arrow keys", 150, 80);
   text("to change the measure", 150, 100);
+  PdBase.pollPdMessageQueue();
 }
 
 void keyPressed() {

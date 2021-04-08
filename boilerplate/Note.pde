@@ -259,10 +259,11 @@ class Note extends DurationElement implements Tangible, Audible {
     double dur = this.durationMs();
     // Osc type message. Related to crescendo project and it plays a midi note.
     // Trying to follow good practices in case we expand
-    OscMessage note = new OscMessage("/crescendo/midi");
-    note.add(frequency);
-    note.add((float)dur);  // Must cast to float as Pd does not support double precision
-    oscP5.send(note, oscDestination);
+    // OscMessage note = new OscMessage("/crescendo/midi");
+    //note.add(frequency);
+    //note.add((float)dur);  // Must cast to float as Pd does not support double precision
+    //oscP5.send(note, oscDestination);
+    PdBase.sendList("oscMsg", frequency, (float)dur);
     this.state = NoteState.PLAYING;
     startTime = millis();
   }
