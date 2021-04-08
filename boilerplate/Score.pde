@@ -11,7 +11,7 @@ public class Score {
   final int totalHeight = lineSpacing * 4;
   final int marginVertical = (height - totalHeight) / 2;
   final int marginHorizontal = 150;
-  final int elemMargin = 2 * lineSpacing;
+  final int elemMargin = lineSpacing;
   final int elemSpacing = totalHeight;
   public int tempo;
   private int startIdx = 0, endIdx = 0;

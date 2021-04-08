@@ -54,7 +54,7 @@ abstract class DurationElement extends OrderedMusicElement implements Duration {
   }
   
   float getPadding() {
-    float base = 2 * this.parent.lineSpacing;
-    return base + this.parent.lineSpacing * max(4 - getDuration().getDenominator(), 0);
+    float base = this.parent.lineSpacing;
+    return base + 0.5 * this.parent.lineSpacing * max(4 - getDuration().getDenominator(), 0);
   }
 }
