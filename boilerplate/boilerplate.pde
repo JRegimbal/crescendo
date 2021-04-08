@@ -41,6 +41,9 @@ PVector fEE = new PVector(0, 0);
 
 boolean engaged = true;
 
+PFont font1;
+PFont font2;
+
 /** Music notation info */
 Score s;
 
@@ -52,7 +55,7 @@ void setup() {
   /** Open Sound Control */
   oscP5 = new OscP5(this, sourcePort);
   /** Haply */
-  haplyBoard = new Board(this, Serial.list()[1], 0);
+  haplyBoard = new Board(this, Serial.list()[4], 0);
   widget = new Device(widgetID, haplyBoard);
   pantograph = new Pantograph();
   widget.set_mechanism(pantograph);
@@ -176,6 +179,9 @@ void setup() {
   /** Spawn haptics thread */
   SimulationThread st = new SimulationThread();
   handle = scheduler.scheduleAtFixedRate(st, 1, 1, MILLISECONDS);
+  
+  font1 = loadFont("D-DIN-Bold-48.vlw");
+  font2 = loadFont("D-DIN-48.vlw");
 }
 
 void draw() {
@@ -187,6 +193,14 @@ void draw() {
       );
     update_animation(angles.x * radsPerDegree, angles.y * radsPerDegree, posEE.x, posEE.y);
   }
+  textFont(font1, 24);
+  fill(0);
+  text("Can you guess the song?", 150, 50);
+  
+  textFont(font2, 15);
+  fill(0);
+  text("Use the up and down arrow keys", 150, 80);
+  text("to change the measure", 150, 100);
 }
 
 void keyPressed() {
