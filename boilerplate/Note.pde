@@ -263,7 +263,8 @@ class Note extends DurationElement implements Tangible, Audible {
     //note.add(frequency);
     //note.add((float)dur);  // Must cast to float as Pd does not support double precision
     //oscP5.send(note, oscDestination);
-    PdBase.sendList("oscMsg", frequency, (float)dur);
+    //PdBase.sendList("oscMsg", frequency, (float)dur);
+    pd.sendList("oscMsg", frequency, (float)dur);
     this.state = NoteState.PLAYING;
     startTime = millis();
   }

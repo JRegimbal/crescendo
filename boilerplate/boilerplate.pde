@@ -3,7 +3,10 @@ import static java.util.concurrent.TimeUnit.*;
 import java.util.concurrent.*;
 import java.lang.System;
 import controlP5.*;
-import org.puredata.core.*;
+// import org.puredata.core.*;
+import org.puredata.processing.PureData;
+
+PureData pd;
 
 /** Settings */
 boolean NOTE_TEXTURE = true;
@@ -56,6 +59,7 @@ Score s;
 
 ControlP5 cp5;
 int patch;
+/*
 PdReceiver receiver = new PdReceiver() {
   @Override
   public void print(String s) {
@@ -68,10 +72,15 @@ PdReceiver receiver = new PdReceiver() {
   public void receiveSymbol(String s, String d) { print(s + d); }
   public void receiveMessage(String s, String d, Object... args) { print(s + d); }
 };
+*/
 
 void setup() {
   size(1000, 650);
   frameRate(baseFrameRate);
+  pd = new PureData(this, 44100, 0, 2);
+  pd.openPatch("oscTest.pd");
+  pd.start();
+  /*
   PdBase.setReceiver(receiver);
   PdBase.openAudio(0, 2, 44100);
   try {
@@ -80,8 +89,10 @@ void setup() {
     println("Unable to open patch!");
     println(e.getMessage());
   }
+  println(patch);
   PdBase.computeAudio(true);
-  PdBase.startAudio();
+  PdBase.start();
+  */
 
   /** Haply */
   haplyBoard = new Board(this, Serial.list()[0], 0);
@@ -381,7 +392,7 @@ void draw() {
   fill(0);
   text("Use the up and down arrow keys", 150, 80);
   text("to change the measure", 150, 100);
-  PdBase.pollPdMessageQueue();
+//  PdBase.pollPdMessageQueue();
 }
 
 void keyPressed() {
@@ -448,3 +459,5 @@ PVector device_to_graphics(PVector deviceFrame) {
 PVector graphics_to_device(PVector graphicsFrame) {
   return graphicsFrame.set(-graphicsFrame.x, graphicsFrame.y);
 }
+
+void pdPrint(String s) { println(s); }
