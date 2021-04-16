@@ -17,12 +17,12 @@ final boolean DAMPING = true;
 /** End settings */
 
 enum Song {
-  ASA_BRANCA,
-  DISNEY,
   MARY,
+  DISNEY,
+  ASA_BRANCA,
 }
 
-Song song = Song.DISNEY;
+Song song = Song.MARY;
 
 private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 final int destination = 8080;
