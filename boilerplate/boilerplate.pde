@@ -95,7 +95,7 @@ void setup() {
   */
 
   /** Haply */
-  haplyBoard = new Board(this, Serial.list()[0], 0);
+  haplyBoard = new Board(this, "/dev/cu.usbmodem14101", 0);
   widget = new Device(widgetID, haplyBoard);
   pantograph = new Pantograph();
   widget.set_mechanism(pantograph);
