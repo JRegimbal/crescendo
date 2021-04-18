@@ -64,11 +64,17 @@ void update_animation(float th1, float th2, float xE, float yE){
   pGraph.setVertex(3, deviceOrigin.x + lAni*cos(th2), deviceOrigin.y + lAni*sin(th2));
   pGraph.setVertex(2, deviceOrigin.x + xE, deviceOrigin.y + yE);
   
-  shape(pGraph);
-  shape(joint);
+  System.out.println("Pos.y: "+posEE.y);
+  if(posEE.y>0.06 && posEE.y<0.11){ //if we are within the score, don't draw it, otherwise do
+    
+  }
+  else{
+    shape(pGraph);
+    shape(joint);
   
   
-  translate(xE, yE);
-  shape(endEffector);
+    translate(xE, yE);
+    shape(endEffector);
+  }
   popMatrix();
 }
